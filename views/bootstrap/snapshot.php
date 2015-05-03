@@ -12,7 +12,97 @@
     </ul>
 </div>
 <div class="col-sm-8">
-    <?php foreach ($snapshot->getItems() as $item): ?>
+    <h3>Server</h3>
+    <table class="table">
+        <?php foreach ($snapshot->getServer() as $variable => $value): ?>
+            <tr>
+                <td><?= $variable ?></td>
+                <td><?= $value ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
 
-    <?php endforeach; ?>
+    <h3>Post</h3>
+    <table class="table">
+        <?php if ( ! empty($snapshot->getPost())): ?>
+            <?php foreach ($snapshot->getPost() as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <em>Empty</em>
+        <?php endif; ?>
+    </table>
+
+    <h3>Get</h3>
+    <table class="table">
+        <?php if ( ! empty($snapshot->getGet())): ?>
+            <?php foreach ($snapshot->getGet() as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <em>Empty</em>
+        <?php endif; ?>
+    </table>
+
+    <h3>Files</h3>
+    <table class="table">
+        <?php if ( ! empty($snapshot->getFiles())): ?>
+            <?php foreach ($snapshot->getFiles() as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <em>Empty</em>
+        <?php endif; ?>
+    </table>
+
+    <h3>Cookies</h3>
+    <table class="table">
+        <?php if ( ! empty($snapshot->getCookies())): ?>
+            <?php foreach ($snapshot->getCookies() as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <em>Empty</em>
+        <?php endif; ?>
+    </table>
+
+    <h3>Session</h3>
+    <table class="table">
+        <?php if ( ! empty($snapshot->getSession())): ?>
+            <?php foreach ($snapshot->getSession() as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <em>Empty</em>
+        <?php endif; ?>
+    </table>
+
+    <h3>Environment</h3>
+    <table class="table">
+        <?php if ( ! empty($snapshot->getEnvironment())): ?>
+            <?php foreach ($snapshot->getEnvironment() as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <em>Empty</em>
+        <?php endif; ?>
+    </table>
 </div>

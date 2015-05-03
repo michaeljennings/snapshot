@@ -39,7 +39,7 @@ class Snapshot extends Model {
         return $this->id;
     }
 
-    /**
+    /**A
      * Get all of the snapshot's items.
      *
      * @return mixed
