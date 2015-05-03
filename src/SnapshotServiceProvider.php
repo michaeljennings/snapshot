@@ -11,7 +11,10 @@ class SnapshotServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->publishes([__DIR__.'/../config/snapshot.php' => config_path('snapshot.php')]);
+        $this->publishes([
+            __DIR__.'/../config/snapshot.php' => config_path('snapshot.php'),
+            __DIR__.'/../database/migrations/' => base_path('database/migrations')
+        ]);
         $this->mergeConfigFrom(__DIR__.'/../config/snapshot.php', 'snapshot');
     }
 
