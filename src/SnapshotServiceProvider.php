@@ -11,6 +11,10 @@ class SnapshotServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
+        // Set the directory to load views from
+        $this->loadViewsFrom(__DIR__.'/../views', 'snapshot');
+
+        // Set the files to publish
         $this->publishes([
             __DIR__.'/../config/snapshot.php' => config_path('snapshot.php'),
             __DIR__.'/../database/migrations/' => base_path('database/migrations')

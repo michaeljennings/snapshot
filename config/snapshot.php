@@ -6,4 +6,6 @@ return [
 
     'renderer' => 'Michaeljennings\\Snapshot\\Renderers\\Illuminate',
 
+    'view' => 'snapshot::bootstrap.snapshot'
+
 ];
