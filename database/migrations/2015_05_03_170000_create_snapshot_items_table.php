@@ -16,7 +16,7 @@ class CreateSnapshotItemsTable extends Migration {
         {
             $table->increments('id');
 
-            $table->unsignedInteger('snapshot');
+            $table->unsignedInteger('snapshot_id');
             $table->string('file');
             $table->unsignedInteger('line');
             $table->string('function', 60);
@@ -25,7 +25,7 @@ class CreateSnapshotItemsTable extends Migration {
             $table->string('type', 50);
             $table->mediumText('args');
 
-            $table->foreign('snapshot')->references('id')->on('snapshots')->onDelete('cascade');
+            $table->foreign('snapshot_id')->references('id')->on('snapshots')->onDelete('cascade');
         });
     }
 

@@ -16,7 +16,7 @@ class Item extends Model {
      *
      * @var array
      */
-    protected $fillable = ['log_id', 'file', 'line', 'function', 'class',
+    protected $fillable = ['snapshot_id', 'file', 'line', 'function', 'class',
         'object', 'type', 'args'];
 
     /**
