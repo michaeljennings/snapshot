@@ -16,7 +16,7 @@ class Snapshot extends Model {
      *
      * @var array
      */
-    protected $fillable = ['class', 'method', 'input'];
+    protected $fillable = ['file', 'line', 'input'];
 
     /**
      * The snapshot items relationship.
