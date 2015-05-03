@@ -36,8 +36,10 @@ class Snapshot implements SnapshotContract {
 
     /**
      * Capture the current state of the application.
+     *
+     * @param array $additionalData
      */
-    public function capture()
+    public function capture(array $additionalData = array())
     {
         $data = [];
         $stackTrace = debug_backtrace();
@@ -45,7 +47,7 @@ class Snapshot implements SnapshotContract {
         $data['snapshot'] = [
             'file' => $this->getCalledFile($stackTrace),
             'line' => $this->getCalledLine($stackTrace),
-        ];
+        ] + $additionalData;
 
         $data['items'] = $this->transformStackTrace($stackTrace);
 
