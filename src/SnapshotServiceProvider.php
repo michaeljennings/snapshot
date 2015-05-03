@@ -33,7 +33,8 @@ class SnapshotServiceProvider extends ServiceProvider {
         {
             return new Snapshot(
                 $app['Michaeljennings\Snapshot\Contracts\Store'],
-                $app['Michaeljennings\Snapshot\Contracts\Renderer']
+                $app['Michaeljennings\Snapshot\Contracts\Renderer'],
+                config('snapshot')
             );
         });
 
