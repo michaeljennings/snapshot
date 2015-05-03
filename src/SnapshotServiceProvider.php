@@ -15,7 +15,6 @@ class SnapshotServiceProvider extends ServiceProvider {
             __DIR__.'/../config/snapshot.php' => config_path('snapshot.php'),
             __DIR__.'/../database/migrations/' => base_path('database/migrations')
         ]);
-        $this->mergeConfigFrom(__DIR__.'/../config/snapshot.php', 'snapshot');
     }
 
     /**
@@ -25,11 +24,17 @@ class SnapshotServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/snapshot.php', 'snapshot');
+
         $this->registerStore();
+        $this->registerRenderer();
 
         $this->app->singleton('Michaeljennings\Snapshot\Contracts\Snapshot', function($app)
         {
-            return new Snapshot($app['Michaeljennings\Snapshot\Contracts\Store']);
+            return new Snapshot(
+                $app['Michaeljennings\Snapshot\Contracts\Store'],
+                $app['Michaeljennings\Snapshot\Contracts\Renderer']
+            );
         });
 
         $this->app->bind('michaeljennings.snapshot', function($app)
@@ -48,6 +53,19 @@ class SnapshotServiceProvider extends ServiceProvider {
         $this->app->bind('Michaeljennings\Snapshot\Contracts\Store', function() use ($store)
         {
             return new $store;
+        });
+    }
+
+    /**
+     * Register the snapshot renderer.
+     */
+    protected function registerRenderer()
+    {
+        $renderer = config('snapshot.renderer');
+
+        $this->app->bind('Michaeljennings\Snapshot\Contracts\Renderer', function($app) use($renderer)
+        {
+            return (new \ReflectionClass($renderer))->newInstanceArgs([$app['view']]);
         });
     }
 
