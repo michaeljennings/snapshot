@@ -82,7 +82,7 @@ To render a snapshot use the `render` method, this takes one parameter which is 
 $snapshot->render(1);
 ```
 
-### Finding a snapshot
+### Finding a Snapshot
 
 Alternatively if you want to choose how to render the snapshot yourself you can get the snapshot by its id using the `find` method.
 
