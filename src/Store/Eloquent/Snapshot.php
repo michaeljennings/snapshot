@@ -38,4 +38,14 @@ class Snapshot extends Model {
         return $this->id;
     }
 
+    /**
+     * Get all of the snapshot's items.
+     *
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
 }
