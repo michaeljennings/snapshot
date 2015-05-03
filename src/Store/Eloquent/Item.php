@@ -20,6 +20,13 @@ class Item extends Model {
         'object', 'type', 'args'];
 
     /**
+     * Set whether the database table has timestamps.
+     *
+     * @var null
+     */
+    public $timestamps = null;
+
+    /**
      * The item snapshot relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
