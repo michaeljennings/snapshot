@@ -92,7 +92,7 @@ class Snapshot implements SnapshotContract {
             $transformedStackTrace[] = $this->transformTrace($trace);
         }
 
-        return array_reverse($transformedStackTrace);
+        return $transformedStackTrace;
     }
 
     /**
