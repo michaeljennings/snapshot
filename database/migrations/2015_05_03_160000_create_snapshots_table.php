@@ -16,9 +16,15 @@ class CreateSnapshotsTable extends Migration {
         {
             $table->increments('id');
 
-            $table->string('file');
-            $table->string('line', 12);
-            $table->mediumText('input');
+            $table->string('file')->nullable()->default(null);
+            $table->string('line', 12)->nullable()->default(null);
+            $table->mediumText('server')->nullable()->default(null);
+            $table->mediumText('post')->nullable()->default(null);
+            $table->mediumText('get')->nullable()->default(null);
+            $table->mediumText('files')->nullable()->default(null);
+            $table->mediumText('cookies')->nullable()->default(null);
+            $table->mediumText('session')->nullable()->default(null);
+            $table->mediumText('environment')->nullable()->default(null);
 
             $table->timestamps();
         });
