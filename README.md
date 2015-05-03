@@ -3,7 +3,6 @@ A PHP package that stores a snapshot of your application and allows you to retri
 
 ## Planned Features
 
-- Native PHP renderer
 - PDO Store
 - File Store
 - More views to choose from
