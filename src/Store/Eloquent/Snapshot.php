@@ -1,8 +1,9 @@
 <?php namespace Michaeljennings\Snapshot\Store\Eloquent; 
 
 use Illuminate\Database\Eloquent\Model;
+use Michaeljennings\Snapshot\Contracts\SnapshotGetters;
 
-class Snapshot extends Model {
+class Snapshot extends Model implements SnapshotGetters {
 
     /**
      * The database table to be used by the model.
@@ -39,7 +40,7 @@ class Snapshot extends Model {
         return $this->id;
     }
 
-    /**A
+    /**
      * Get all of the snapshot's items.
      *
      * @return mixed
