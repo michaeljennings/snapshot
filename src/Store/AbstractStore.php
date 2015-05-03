@@ -43,7 +43,7 @@ abstract class AbstractStore implements Store {
             $this->item($snapshot->getId(), $item);
         }
 
-        return $this->find($id);
+        return $this->find($snapshot->getId());
     }
 
 }

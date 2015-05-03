@@ -59,9 +59,9 @@ class Snapshot {
      */
     protected function transformTrace(array $trace)
     {
-        if ( ! empty($trace['object'])) $trace['object'] = json_encode($trace['object']);
+        if (isset($trace['object'])) $trace['object'] = json_encode($trace['object']);
 
-        if ( ! empty($trace['args'])) $trace['args'] = json_encode($trace['args']);
+        if (isset($trace['args'])) $trace['args'] = json_encode($trace['args']);
 
         return $trace;
     }
