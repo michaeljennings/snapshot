@@ -45,9 +45,16 @@ class Snapshot implements SnapshotContract {
         $stackTrace = debug_backtrace();
 
         $data['snapshot'] = [
-            'file' => $this->getCalledFile($stackTrace),
-            'line' => $this->getCalledLine($stackTrace),
-        ] + $additionalData;
+                'file' => $this->getCalledFile($stackTrace),
+                'line' => $this->getCalledLine($stackTrace),
+                'server' => json_encode($_SERVER),
+                'post' => ! empty($_POST) ? json_encode($_POST) : null,
+                'get' => ! empty($_GET) ? json_encode($_GET) : null,
+                'files' => ! empty($_FILES) ? json_encode($_FILES) : null,
+                'cookies' => ! empty($_COOKIE) ? json_encode($_COOKIE) : null,
+                'session' => ! empty($_SESSION) ? json_encode($_SESSION) : null,
+                'environment' => json_encode($_ENV)
+            ] + $additionalData;
 
         $data['items'] = $this->transformStackTrace($stackTrace);
 
