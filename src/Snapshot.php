@@ -1,8 +1,10 @@
 <?php namespace Michaeljennings\Snapshot;
 
+use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Contracts\Store;
 
-class Snapshot {
+class Snapshot
+{
 
     /**
      * An instance of a snapshot store.
@@ -11,9 +13,25 @@ class Snapshot {
      */
     protected $store;
 
-	public function __construct(Store $store)
+    /**
+     * An instance of a snapshot renderer.
+     *
+     * @var Renderer
+     */
+    protected $renderer;
+
+    /**
+     * The package configuration.
+     *
+     * @var array
+     */
+    protected $config;
+
+    public function __construct(Store $store, Renderer $renderer, array $config)
     {
         $this->store = $store;
+        $this->renderer = $renderer;
+        $this->config = $config;
     }
 
     /**
@@ -32,6 +50,30 @@ class Snapshot {
         $data['items'] = $this->transformStackTrace($stackTrace);
 
         $this->store->capture($data);
+    }
+
+    /**
+     * Find a snapshot by its id.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        return $this->store->find($id);
+    }
+
+    /**
+     * Find a snapshot by its id and render all of it's data.
+     *
+     * @param $id
+     * @return string
+     */
+    public function render($id)
+    {
+        return $this->renderer->make($this->config['view'], [
+            'snapshot' => $this->store->find($id)
+        ]);
     }
 
     /**
