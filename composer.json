@@ -1,0 +1,21 @@
+{
+    "name": "michaeljennings/snapshot",
+    "description": "A PHP package that takes a snapshot of your application and allows you to retrieve it later to help with debugging.",
+    "keywords": ["debugging", "snapshot", "laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Jennings",
+            "email": "michael.jennings91@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Michaeljennings\\Snapshot\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
