@@ -25,7 +25,7 @@ class CreateSnapshotItemsTable extends Migration {
             $table->string('type', 50);
             $table->mediumText('args');
 
-            $table->foreign('snapshot')->references('id')->on('logs')->onDelete('cascade');
+            $table->foreign('snapshot')->references('id')->on('snapshots')->onDelete('cascade');
         });
     }
 
