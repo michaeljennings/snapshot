@@ -35,7 +35,7 @@ class Store extends AbstractStore {
      * @param $id
      * @return mixed
      */
-    protected function find($id)
+    public function find($id)
     {
         return Snapshot::where('id', $id)->with('items')->first();
     }

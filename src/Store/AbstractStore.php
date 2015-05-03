@@ -27,7 +27,7 @@ abstract class AbstractStore implements Store {
      * @param $id
      * @return mixed
      */
-    abstract protected function find($id);
+    abstract public function find($id);
 
     /**
      * Store the current state of the application.
