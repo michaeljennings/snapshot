@@ -1,10 +1,10 @@
 <?php namespace Michaeljennings\Snapshot;
 
-use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Contracts\Store;
+use Michaeljennings\Snapshot\Contracts\Renderer;
+use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotContract;
 
-class Snapshot
-{
+class Snapshot implements SnapshotContract {
 
     /**
      * An instance of a snapshot store.
