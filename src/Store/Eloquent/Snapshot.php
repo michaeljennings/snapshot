@@ -120,4 +120,64 @@ class Snapshot extends Model implements SnapshotGetters {
         return $this->environment ? json_decode($this->environment) : [];
     }
 
+    /**
+     * Check if the snapshot has any post data.
+     *
+     * @return boolean
+     */
+    public function hasPost()
+    {
+        return is_null($this->post) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any get data.
+     *
+     * @return boolean
+     */
+    public function hasGet()
+    {
+        return is_null($this->get) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any file data.
+     *
+     * @return mixed
+     */
+    public function hasFiles()
+    {
+        return is_null($this->files) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any cookie data.
+     *
+     * @return boolean
+     */
+    public function hasCookies()
+    {
+        return is_null($this->cookies) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any session data.
+     *
+     * @return boolean
+     */
+    public function hasSession()
+    {
+        return is_null($this->session) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any environment data.
+     *
+     * @return boolean
+     */
+    public function hasEnvironment()
+    {
+        return is_null($this->environment) ? false : true;
+    }
+
 }
