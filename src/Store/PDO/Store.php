@@ -2,8 +2,6 @@
 
 use PDO;
 use DateTime;
-use Michaeljennings\Snapshot\Store\PDO\Item;
-use Michaeljennings\Snapshot\Store\PDO\Snapshot;
 use Michaeljennings\Snapshot\Store\AbstractStore;
 
 class Store extends AbstractStore {
