@@ -12,7 +12,31 @@ return [
      * Supported: Michaeljennings\\Snapshot\\Store\\Eloquent\\Store
      *
      */
-    'store' => 'Michaeljennings\\Snapshot\\Store\\Eloquent\\Store',
+    'store' =>  [
+
+        'class' => 'Michaeljennings\\Snapshot\\Store\\Eloquent\\Store',
+
+        'eloquent' => [
+
+            /**
+             * ----------------------------------------------------------------
+             *  Models
+             * ----------------------------------------------------------------
+             *
+             * Set the models to to be used by the eloquent store.
+             *
+             */
+            'models' => [
+
+                'snapshot' => 'Michaeljennings\Snapshot\Store\Eloquent\Snapshot',
+
+                'item' => 'Michaeljennings\Snapshot\Store\Eloquent\Item'
+
+            ],
+
+        ],
+
+    ],
 
     /**
      * -------------------------------------------------------------------------

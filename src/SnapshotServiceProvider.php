@@ -53,7 +53,7 @@ class SnapshotServiceProvider extends ServiceProvider {
      */
     protected function registerStore()
     {
-        $store = config('snapshot.store');
+        $store = config('snapshot.store.class');
 
         $this->app->bind('Michaeljennings\Snapshot\Contracts\Store', function() use ($store)
         {
