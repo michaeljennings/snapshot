@@ -196,7 +196,7 @@ class Store extends AbstractStore {
      *
      * @return PDO
      */
-    protected function getConnection()
+    public function getConnection()
     {
         return $this->pdo;
     }
