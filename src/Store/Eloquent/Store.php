@@ -12,7 +12,8 @@ class Store extends AbstractStore {
      */
     protected function snapshot(array $input)
     {
-        $model = new $this->config['store']['eloquent']['models']['snapshot'];
+        $model = $this->config['store']['eloquent']['models']['snapshot'];
+        $model = new $model;
 
         return $model->create($input);
     }
@@ -26,7 +27,9 @@ class Store extends AbstractStore {
      */
     protected function item($snapshotId, array $input)
     {
-        $model = new $this->config['store']['eloquent']['models']['item'];
+        $model = $this->config['store']['eloquent']['models']['item'];
+        $model = new $model;
+        
         $input['snapshot_id'] = $snapshotId;
 
         return $model->create($input);
@@ -40,7 +43,8 @@ class Store extends AbstractStore {
      */
     public function find($id)
     {
-        $model = new $this->config['store']['eloquent']['models']['snapshot'];
+        $model = $this->config['store']['eloquent']['models']['snapshot'];
+        $model = new $model;
 
         return $model->where('id', $id)->with('items')->first();
     }
