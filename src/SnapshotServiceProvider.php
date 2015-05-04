@@ -57,7 +57,7 @@ class SnapshotServiceProvider extends ServiceProvider {
 
         $this->app->bind('Michaeljennings\Snapshot\Contracts\Store', function() use ($store)
         {
-            return new $store;
+            return (new \ReflectionClass($store))->newInstanceArgs([config('snapshot')]);
         });
     }
 

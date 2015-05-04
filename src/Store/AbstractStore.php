@@ -5,6 +5,18 @@ use Michaeljennings\Snapshot\Contracts\Store;
 abstract class AbstractStore implements Store {
 
     /**
+     * The package config.
+     *
+     * @var array
+     */
+    protected $config = [];
+
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * Create a new snapshot.
      *
      * @param array $input
