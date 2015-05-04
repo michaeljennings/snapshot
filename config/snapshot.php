@@ -48,9 +48,9 @@ return [
             'connection' => [
 
                 'host' => 'localhost',
-                'username' => 'root',
-                'password' => 'root',
-                'db' => 'packages'
+                'username' => 'user',
+                'password' => 'secret',
+                'db' => 'database'
 
             ]
 

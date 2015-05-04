@@ -1,9 +1,8 @@
 # Snapshot [![Latest Stable Version](https://poser.pugx.org/michaeljennings/snapshot/v/stable)](https://packagist.org/packages/michaeljennings/snapshot) [![Latest Unstable Version](https://poser.pugx.org/michaeljennings/snapshot/v/unstable)](https://packagist.org/packages/michaeljennings/snapshot) [![License](https://poser.pugx.org/michaeljennings/snapshot/license)](https://packagist.org/packages/michaeljennings/snapshot)
-A PHP package that stores a snapshot of your application and allows you to retrieve it later to help with debugging.
+A PHP package that stores a [whoops-like](https://github.com/filp/whoops) snapshot of your application and allows you to retrieve it later to help with debugging.
 
 ## Planned Features
 
-- PDO Store
 - File Store
 - More views to choose from
 
