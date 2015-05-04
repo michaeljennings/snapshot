@@ -36,6 +36,26 @@ return [
 
         ],
 
+        'pdo' => [
+
+            /**
+             * ----------------------------------------------------------------
+             *  PDO Connection
+             * ----------------------------------------------------------------
+             *
+             * Set the database connection to your store here.
+             */
+            'connection' => [
+
+                'host' => 'localhost',
+                'username' => 'root',
+                'password' => 'root',
+                'db' => 'packages'
+
+            ]
+
+        ],
+
     ],
 
     /**
