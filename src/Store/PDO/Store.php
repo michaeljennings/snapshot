@@ -33,9 +33,7 @@ class Store extends AbstractStore {
         $input['created_at'] = $date->format('Y-m-d H:i:s');
         $input['updated_at'] = $date->format('Y-m-d H:i:s');
 
-        list($fields, $placeholder) = $this->prepareFieldsForStatement($input);
-
-        $this->pdo->prepare("INSERT INTO snapshots ($fields) VALUES ($placeholder)")->execute(array_values($input));
+        $this->insert('snapshots', $input);
 
         return $this->find($this->pdo->lastInsertId());
     }
@@ -51,9 +49,7 @@ class Store extends AbstractStore {
     {
         $input['snapshot_id'] = $snapshotId;
 
-        list($fields, $placeholder) = $this->prepareFieldsForStatement($input);
-
-        $this->pdo->prepare("INSERT INTO snapshot_items ($fields) VALUES ($placeholder)")->execute(array_values($input));
+        $this->insert('snapshot_items', $input);
     }
 
     /**
@@ -92,6 +88,19 @@ class Store extends AbstractStore {
         }
 
         return $items;
+    }
+
+    /**
+     * Insert into the provided database table the provided data.
+     *
+     * @param $table
+     * @param array $input
+     */
+    protected function insert($table, array $input)
+    {
+        list($fields, $placeholder) = $this->prepareFieldsForStatement($input);
+
+        $this->pdo->prepare("INSERT INTO `{$table}` ($fields) VALUES ($placeholder)")->execute(array_values($input));
     }
 
     /**
