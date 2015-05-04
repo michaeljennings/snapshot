@@ -33,10 +33,7 @@ class Store extends AbstractStore {
         $input['created_at'] = $date->format('Y-m-d H:i:s');
         $input['updated_at'] = $date->format('Y-m-d H:i:s');
 
-        $keys = array_keys($input);
-        $fields = '`'.implode('`, `',$keys).'`';
-
-        $placeholder = substr(str_repeat('?,', count($keys)), 0, -1);
+        list($fields, $placeholder) = $this->prepareFieldsForStatement($input);
 
         $this->pdo->prepare("INSERT INTO snapshots ($fields) VALUES ($placeholder)")->execute(array_values($input));
 
@@ -54,10 +51,7 @@ class Store extends AbstractStore {
     {
         $input['snapshot_id'] = $snapshotId;
 
-        $keys = array_keys($input);
-        $fields = '`'.implode('`, `',$keys).'`';
-
-        $placeholder = substr(str_repeat('?,', count($keys)), 0, -1);
+        list($fields, $placeholder) = $this->prepareFieldsForStatement($input);
 
         $this->pdo->prepare("INSERT INTO snapshot_items ($fields) VALUES ($placeholder)")->execute(array_values($input));
     }
@@ -120,6 +114,21 @@ class Store extends AbstractStore {
     protected function makeItemWrapper(array $attributes)
     {
         return new Item($attributes);
+    }
+
+    /**
+     * Prepare an array of key value pairs for a prepared PDO statement.
+     *
+     * @param array $input
+     * @return array
+     */
+    protected function prepareFieldsForStatement(array $input)
+    {
+        $keys = array_keys($input);
+        $fields = '`' . implode('`, `', $keys) . '`';
+
+        $placeholder = substr(str_repeat('?,', count($keys)), 0, -1);
+        return array($fields, $placeholder);
     }
 
     /**
