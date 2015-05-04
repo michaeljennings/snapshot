@@ -31,11 +31,25 @@ interface SnapshotGetters {
     public function getPost();
 
     /**
+     * Check if the snapshot has any post data.
+     *
+     * @return boolean
+     */
+    public function hasPost();
+
+    /**
      * Get all get data from the snapshot.
      *
      * @return array|mixed
      */
     public function getGet();
+
+    /**
+     * Check if the snapshot has any get data.
+     *
+     * @return boolean
+     */
+    public function hasGet();
 
     /**
      * Get all file data from the snapshot.
@@ -45,11 +59,25 @@ interface SnapshotGetters {
     public function getFiles();
 
     /**
+     * Check if the snapshot has any file data.
+     *
+     * @return mixed
+     */
+    public function hasFiles();
+
+    /**
      * Get the cookie data from the snapshot.
      *
      * @return array|mixed
      */
     public function getCookies();
+
+    /**
+     * Check if the snapshot has any cookie data.
+     *
+     * @return boolean
+     */
+    public function hasCookies();
 
     /**
      * Get the session data from the snapshot.
@@ -59,10 +87,24 @@ interface SnapshotGetters {
     public function getSession();
 
     /**
+     * Check if the snapshot has any session data.
+     *
+     * @return boolean
+     */
+    public function hasSession();
+
+    /**
      * Get the environment data from the snapshot.
      *
      * @return array|mixed
      */
     public function getEnvironment();
+
+    /**
+     * Check if the snapshot has any environment data.
+     *
+     * @return boolean
+     */
+    public function hasEnvironment();
 
 }

@@ -28,16 +28,6 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
     }
 
     /**
-     * Get all of the snapshot's items.
-     *
-     * @return mixed
-     */
-    public function getItems()
-    {
-        return $this->attributes['items'];
-    }
-
-    /**
      * Get all of the server variables at the time of the snapshot.
      *
      * @return array|mixed
@@ -105,6 +95,78 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
     public function getEnvironment()
     {
         return ! is_null($this->attributes['environment']) ? json_decode($this->attributes['environment']) : [];
+    }
+
+
+
+    /**
+     * Get all of the snapshot's items.
+     *
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->attributes['items'];
+    }
+
+    /**
+     * Check if the snapshot has any post data.
+     *
+     * @return boolean
+     */
+    public function hasPost()
+    {
+        return is_null($this->attributes['post']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any get data.
+     *
+     * @return boolean
+     */
+    public function hasGet()
+    {
+        return is_null($this->attributes['get']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any file data.
+     *
+     * @return mixed
+     */
+    public function hasFiles()
+    {
+        return is_null($this->attributes['files']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any cookie data.
+     *
+     * @return boolean
+     */
+    public function hasCookies()
+    {
+        return is_null($this->attributes['cookies']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any session data.
+     *
+     * @return boolean
+     */
+    public function hasSession()
+    {
+        return is_null($this->attributes['session']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any environment data.
+     *
+     * @return boolean
+     */
+    public function hasEnvironment()
+    {
+        return is_null($this->attributes['environment']) ? false : true;
     }
 
     /**
