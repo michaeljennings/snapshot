@@ -19,9 +19,7 @@ class Store extends AbstractStore {
     {
         parent::__construct($config);
 
-        $config = $config['store']['pdo']['connection'];
-        $this->pdo = new PDO("mysql:host={$config['host']};dbname={$config['db']}", $config['username'], $config['password']);
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo = $this->createConnection($config['store']['pdo']);
     }
 
     /**
@@ -124,6 +122,57 @@ class Store extends AbstractStore {
     protected function makeItemWrapper(array $attributes)
     {
         return new Item($attributes);
+    }
+
+    /**
+     * Create a PDO connection.
+     *
+     * @param array $config
+     * @return PDO
+     */
+    protected function createConnection(array $config)
+    {
+        $method = 'create' . ucfirst($config['connection']) . 'Connection';
+
+        if (method_exists($this, $method)) {
+            return $this->$method($config);
+        }
+
+        return $this->createDefaultConnection($config);
+    }
+
+    /**
+     * Create an SQLite PDO connection.
+     *
+     * @param array $config
+     * @return PDO
+     */
+    protected function createSqliteConnection(array $config)
+    {
+        $driver = $config['connection'];
+        $config = $config['connections'][$driver];
+
+        $pdo = new PDO("sqlite:{$config['database']}");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        return $pdo;
+    }
+
+    /**
+     * Create a default PDO connection.
+     *
+     * @param array $config
+     * @return PDO
+     */
+    protected function createDefaultConnection(array $config)
+    {
+        $driver = $config['connection'];
+        $config = $config['connections'][$driver];
+
+        $pdo = new PDO("{$driver}:host={$config['host']};dbname={$config['db']}", $config['username'], $config['password']);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        return $pdo;
     }
 
 }

@@ -10,6 +10,7 @@ return [
      * Set the class to use to store the snapshots.
      *
      * Supported: Michaeljennings\\Snapshot\\Store\\Eloquent\\Store
+     *            Michaeljennings\\Snapshot\\Store\\PDO\\Store
      *
      */
     'store' =>  [
@@ -40,17 +41,35 @@ return [
 
             /**
              * ----------------------------------------------------------------
-             *  PDO Connection
+             *  Database Connection
              * ----------------------------------------------------------------
              *
-             * Set the database connection to your store here.
+             * Set which database connection you want to use.
              */
-            'connection' => [
+            'connection' => 'mysql',
 
-                'host' => 'localhost',
-                'username' => 'user',
-                'password' => 'secret',
-                'db' => 'database'
+            /**
+             * ----------------------------------------------------------------
+             *  PDO Connections
+             * ----------------------------------------------------------------
+             *
+             * Set any database connection details here.
+             */
+            'connections' => [
+
+                'sqlite' => [
+                    'driver' => 'sqlite',
+                    'database' => ':memory:',
+                ],
+
+                'mysql' => [
+                    'driver' => 'mysql',
+                    'host' => 'localhost',
+                    'username' => 'user',
+                    'password' => 'secret',
+                    'db' => 'database'
+
+                ]
 
             ]
 
