@@ -44,7 +44,7 @@ class Store extends AbstractStore {
 
         $this->pdo->prepare("INSERT INTO snapshots ($fields) VALUES ($placeholder)")->execute(array_values($input));
 
-        $this->find($this->pdo->lastInsertId());
+        return $this->find($this->pdo->lastInsertId());
     }
 
     /**
@@ -56,6 +56,8 @@ class Store extends AbstractStore {
      */
     protected function item($snapshotId, array $input)
     {
+        $input['snapshot_id'] = $snapshotId;
+
         $keys = array_keys($input);
         $fields = '`'.implode('`, `',$keys).'`';
 
@@ -82,6 +84,12 @@ class Store extends AbstractStore {
         return $this->makeSnapshotWrapper($row);
     }
 
+    /**
+     * Find the items belonging to a snapshot.
+     *
+     * @param $snapshotId
+     * @return array
+     */
     protected function findSnapshotItems($snapshotId)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM `snapshot_items` WHERE `snapshot_id` = ?");

@@ -1,5 +1,7 @@
 <?php namespace Michaeljennings\Snapshot\Store\PDO; 
 
+use ArrayAccess;
+
 class Item implements ArrayAccess {
 
     /**
@@ -64,7 +66,7 @@ class Item implements ArrayAccess {
      */
     public function __get($key)
     {
-        return $this->get($key);
+        return $this->attributes[$key];
     }
     /**
      * Dynamically set the value of an attribute.
