@@ -24,7 +24,7 @@
 
     <h3>Post</h3>
     <table class="table">
-        <?php if ( ! empty($snapshot->getPost())): ?>
+        <?php if ($snapshot->hasPost()): ?>
             <?php foreach ($snapshot->getPost() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
@@ -38,7 +38,7 @@
 
     <h3>Get</h3>
     <table class="table">
-        <?php if ( ! empty($snapshot->getGet())): ?>
+        <?php if ($snapshot->getGet()): ?>
             <?php foreach ($snapshot->getGet() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
@@ -52,7 +52,7 @@
 
     <h3>Files</h3>
     <table class="table">
-        <?php if ( ! empty($snapshot->getFiles())): ?>
+        <?php if ($snapshot->getFiles()): ?>
             <?php foreach ($snapshot->getFiles() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
@@ -66,7 +66,7 @@
 
     <h3>Cookies</h3>
     <table class="table">
-        <?php if ( ! empty($snapshot->getCookies())): ?>
+        <?php if ($snapshot->getCookies()): ?>
             <?php foreach ($snapshot->getCookies() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
@@ -80,7 +80,7 @@
 
     <h3>Session</h3>
     <table class="table">
-        <?php if ( ! empty($snapshot->getSession())): ?>
+        <?php if ($snapshot->getSession()): ?>
             <?php foreach ($snapshot->getSession() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
@@ -94,7 +94,7 @@
 
     <h3>Environment</h3>
     <table class="table">
-        <?php if ( ! empty($snapshot->getEnvironment())): ?>
+        <?php if ($snapshot->getEnvironment()): ?>
             <?php foreach ($snapshot->getEnvironment() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
