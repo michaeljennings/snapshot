@@ -29,7 +29,7 @@ class Store extends AbstractStore {
     {
         $model = $this->config['store']['eloquent']['models']['item'];
         $model = new $model;
-        
+
         $input['snapshot_id'] = $snapshotId;
 
         return $model->create($input);
