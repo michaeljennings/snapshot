@@ -15,7 +15,7 @@ return [
      */
     'store' =>  [
 
-        'class' => 'Michaeljennings\\Snapshot\\Store\\Eloquent\\Store',
+        'class' => 'Michaeljennings\\Snapshot\\Store\\PDO\\Store',
 
         'eloquent' => [
 
@@ -88,7 +88,7 @@ return [
      *            Michaeljennings\\Snapshot\\Renderers\\Native
      *
      */
-    'renderer' => 'Michaeljennings\\Snapshot\\Renderers\\Illuminate',
+    'renderer' => 'Michaeljennings\\Snapshot\\Renderers\\Native',
 
     /**
      * -------------------------------------------------------------------------
