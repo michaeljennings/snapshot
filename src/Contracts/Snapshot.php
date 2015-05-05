@@ -4,10 +4,8 @@ interface Snapshot {
 
     /**
      * Capture the current state of the application.
-     *
-     * @param array $additionalData
      */
-    public function capture(array $additionalData = array());
+    public function capture();
 
     /**
      * Find a snapshot by its id.

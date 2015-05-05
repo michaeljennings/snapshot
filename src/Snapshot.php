@@ -36,26 +36,31 @@ class Snapshot implements SnapshotContract {
 
     /**
      * Capture the current state of the application.
-     *
-     * @param array $additionalData
      */
-    public function capture(array $additionalData = array())
+    public function capture()
     {
+        $args = func_get_args();
         $data = [];
-        $stackTrace = debug_backtrace();
 
-        $data['snapshot'] = [
-                'file' => $this->getCalledFile($stackTrace),
-                'line' => $this->getCalledLine($stackTrace),
-                'server' => json_encode($_SERVER),
-                'post' => ! empty($_POST) ? json_encode($_POST) : null,
-                'get' => ! empty($_GET) ? json_encode($_GET) : null,
-                'files' => ! empty($_FILES) ? json_encode($_FILES) : null,
-                'cookies' => ! empty($_COOKIE) ? json_encode($_COOKIE) : null,
-                'session' => ! empty($_SESSION) ? json_encode($_SESSION) : null,
-                'environment' => json_encode($_ENV)
-            ] + $additionalData;
+        foreach ($args as $arg) {
+            if ($arg instanceof \Exception) {
+                $stackTrace = $arg->getTrace();
+            }
 
+            if (is_array($arg)) {
+                if ( ! isset($data['addtional_data'])) {
+                    $data['additional_data'] = array();
+                }
+
+                $data['addtional_data'] = array_merge($data['addtional_data'], $arg);
+            }
+        }
+
+        if ( ! isset($stackTrace)) {
+            $stackTrace = debug_backtrace();
+        }
+
+        $data['snapshot'] = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
         $data['items'] = $this->transformStackTrace($stackTrace);
 
         $this->store->capture($data);
@@ -83,6 +88,29 @@ class Snapshot implements SnapshotContract {
         return $this->renderer->make($this->config['view'], [
             'snapshot' => $this->store->find($id)
         ]);
+    }
+
+    /**
+     * Get the data needed to create a snapshot.
+     *
+     * @param $file
+     * @param $line
+     * @param array $additionalData
+     * @return array
+     */
+    protected function getSnapshotData($file, $line, array $additionalData = [])
+    {
+        return [
+            'file' => $file,
+            'line' => $line,
+            'server' => json_encode($_SERVER),
+            'post' => ! empty($_POST) ? json_encode($_POST) : null,
+            'get' => ! empty($_GET) ? json_encode($_GET) : null,
+            'files' => ! empty($_FILES) ? json_encode($_FILES) : null,
+            'cookies' => ! empty($_COOKIE) ? json_encode($_COOKIE) : null,
+            'session' => ! empty($_SESSION) ? json_encode($_SESSION) : null,
+            'environment' => json_encode($_ENV)
+        ];
     }
 
     /**
