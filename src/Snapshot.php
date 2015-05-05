@@ -61,7 +61,7 @@ class Snapshot implements SnapshotContract {
         }
 
         $data['snapshot'] = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
-        $data['snapshot']['additional_data'] = isset($additionalData) ? $additionalData : null;
+        $data['snapshot']['additional_data'] = isset($additionalData) ? json_encode($additionalData) : null;
         $data['items'] = $this->transformStackTrace($stackTrace);
 
         $this->store->capture($data);
