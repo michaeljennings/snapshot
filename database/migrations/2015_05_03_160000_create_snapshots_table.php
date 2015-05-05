@@ -25,6 +25,7 @@ class CreateSnapshotsTable extends Migration {
             $table->mediumText('cookies')->nullable()->default(null);
             $table->mediumText('session')->nullable()->default(null);
             $table->mediumText('environment')->nullable()->default(null);
+            $table->mediumText('additional_data')->nullable()->default(null);
 
             $table->timestamps();
         });
