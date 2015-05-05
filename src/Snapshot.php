@@ -48,11 +48,11 @@ class Snapshot implements SnapshotContract {
             }
 
             if (is_array($arg)) {
-                if ( ! isset($data['addtional_data'])) {
-                    $data['additional_data'] = array();
+                if ( ! isset($additionalData)) {
+                    $additionalData = array();
                 }
 
-                $data['addtional_data'] = array_merge($data['addtional_data'], $arg);
+                $additionalData = array_merge($additionalData, $arg);
             }
         }
 
@@ -61,6 +61,7 @@ class Snapshot implements SnapshotContract {
         }
 
         $data['snapshot'] = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
+        $data['snapshot']['additional_data'] = isset($additionalData) ? $additionalData : null;
         $data['items'] = $this->transformStackTrace($stackTrace);
 
         $this->store->capture($data);
