@@ -40,27 +40,23 @@ class Snapshot implements SnapshotContract {
     public function capture()
     {
         $args = func_get_args();
-        $data = [];
+        $additionalData = [];
+        $stackTrace = debug_backtrace();
+        $snapshot = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
 
         foreach ($args as $arg) {
             if ($arg instanceof \Exception) {
                 $stackTrace = $arg->getTrace();
+                $snapshot['message'] = $arg->getMessage();
+                $snapshot['code'] = $arg->getCode();
             }
 
             if (is_array($arg)) {
-                if ( ! isset($additionalData)) {
-                    $additionalData = array();
-                }
-
                 $additionalData = array_merge($additionalData, $arg);
             }
         }
 
-        if ( ! isset($stackTrace)) {
-            $stackTrace = debug_backtrace();
-        }
-
-        $data['snapshot'] = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
+        $data['snapshot'] = $snapshot;
         $data['snapshot']['additional_data'] = isset($additionalData) ? json_encode($additionalData) : null;
         $data['items'] = $this->transformStackTrace($stackTrace);
 
