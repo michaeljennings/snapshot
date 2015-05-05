@@ -125,9 +125,29 @@ class Snapshot extends Model implements SnapshotGetters {
      *
      * @return array|mixed
      */
-    public function getAddtionalData()
+    public function getAdditionalData()
     {
         return $this->additional_data ? json_decode($this->additional_data) : [];
+    }
+
+    /**
+     * Get a message for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getMessage()
+    {
+        return $this->message ? json_decode($this->message) : [];
+    }
+
+    /**
+     * Get a code for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getCode()
+    {
+        return $this->code ? json_decode($this->code) : [];
     }
 
     /**
@@ -199,5 +219,26 @@ class Snapshot extends Model implements SnapshotGetters {
     {
         return is_null($this->additional_data) ? false : true;
     }
+
+    /**
+     * Check if the snapshot has a message.
+     *
+     * @return boolean
+     */
+    public function hasMessage()
+    {
+        return is_null($this->message) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has a code.
+     *
+     * @return boolean
+     */
+    public function hasCode()
+    {
+        return is_null($this->code) ? false : true;
+    }
+
 
 }

@@ -102,9 +102,30 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
      *
      * @return array|mixed
      */
-    public function getAddtionalData()
+    public function getAdditionalData()
     {
         return ! is_null($this->attributes['additional_data']) ? json_decode($this->attributes['additional_data']) : [];
+    }
+
+    /**
+     * Get a message for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getMessage()
+    {
+        return ! is_null($this->attributes['message']) ? json_decode($this->attributes['message']) : [];
+    }
+
+    /**
+     * Get a code for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getCode()
+    {
+        return ! is_null($this->attributes['code']) ? json_decode($this->attributes['code']) : [];
+
     }
 
     /**
@@ -186,6 +207,27 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
     {
         return is_null($this->attributes['additional_data']) ? false : true;
     }
+
+    /**
+     * Check if the snapshot has a message.
+     *
+     * @return boolean
+     */
+    public function hasMessage()
+    {
+        return is_null($this->attributes['message']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has a code.
+     *
+     * @return boolean
+     */
+    public function hasCode()
+    {
+        return is_null($this->attributes['code']) ? false : true;
+    }
+
 
     /**
      * Determine if the given offset exists.

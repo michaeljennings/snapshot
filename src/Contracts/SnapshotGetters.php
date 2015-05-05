@@ -112,7 +112,7 @@ interface SnapshotGetters {
      *
      * @return array|mixed
      */
-    public function getAddtionalData();
+    public function getAdditionalData();
 
     /**
      * Check if the snapshot has any additional data.
@@ -120,5 +120,33 @@ interface SnapshotGetters {
      * @return boolean
      */
     public function hasAdditionalData();
+
+    /**
+ * Get a message for the snapshot.
+ *
+ * @return array|mixed
+ */
+    public function getMessage();
+
+    /**
+     * Check if the snapshot has a message.
+     *
+     * @return boolean
+     */
+    public function hasMessage();
+
+    /**
+     * Get a code for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getCode();
+
+    /**
+     * Check if the snapshot has a code.
+     *
+     * @return boolean
+     */
+    public function hasCode();
 
 }
