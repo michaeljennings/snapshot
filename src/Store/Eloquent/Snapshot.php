@@ -18,7 +18,7 @@ class Snapshot extends Model implements SnapshotGetters {
      * @var array
      */
     protected $fillable = ['file', 'line', 'server', 'post', 'get', 'files', 'cookies',
-        'session', 'environment', 'additional_data'];
+        'session', 'environment', 'additional_data', 'message', 'code'];
 
     /**
      * The snapshot items relationship.

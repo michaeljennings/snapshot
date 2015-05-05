@@ -18,6 +18,8 @@ class CreateSnapshotsTable extends Migration {
 
             $table->string('file')->nullable()->default(null);
             $table->string('line', 12)->nullable()->default(null);
+            $table->text('message')->nullable()->default(null);
+            $table->unsignedInteger('code')->nullable()->default(null);
             $table->mediumText('server')->nullable()->default(null);
             $table->mediumText('post')->nullable()->default(null);
             $table->mediumText('get')->nullable()->default(null);
