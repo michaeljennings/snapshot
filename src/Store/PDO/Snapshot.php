@@ -97,7 +97,15 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
         return ! is_null($this->attributes['environment']) ? json_decode($this->attributes['environment']) : [];
     }
 
-
+    /**
+     * Get any additional data for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getAddtionalData()
+    {
+        return ! is_null($this->attributes['additional_data']) ? json_decode($this->attributes['additional_data']) : [];
+    }
 
     /**
      * Get all of the snapshot's items.
@@ -167,6 +175,16 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
     public function hasEnvironment()
     {
         return is_null($this->attributes['environment']) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any additional data.
+     *
+     * @return boolean
+     */
+    public function hasAdditionalData()
+    {
+        return is_null($this->attributes['additional_data']) ? false : true;
     }
 
     /**

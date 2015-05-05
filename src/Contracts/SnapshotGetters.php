@@ -107,4 +107,18 @@ interface SnapshotGetters {
      */
     public function hasEnvironment();
 
+    /**
+     * Get any additional data for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getAddtionalData();
+
+    /**
+     * Check if the snapshot has any additional data.
+     *
+     * @return boolean
+     */
+    public function hasAdditionalData();
+
 }

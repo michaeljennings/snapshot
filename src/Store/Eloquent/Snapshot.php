@@ -18,7 +18,7 @@ class Snapshot extends Model implements SnapshotGetters {
      * @var array
      */
     protected $fillable = ['file', 'line', 'server', 'post', 'get', 'files', 'cookies',
-        'session', 'environment'];
+        'session', 'environment', 'additional_data'];
 
     /**
      * The snapshot items relationship.
@@ -121,6 +121,16 @@ class Snapshot extends Model implements SnapshotGetters {
     }
 
     /**
+     * Get any additional data for the snapshot.
+     *
+     * @return array|mixed
+     */
+    public function getAddtionalData()
+    {
+        return $this->additional_data ? json_decode($this->additional_data) : [];
+    }
+
+    /**
      * Check if the snapshot has any post data.
      *
      * @return boolean
@@ -178,6 +188,16 @@ class Snapshot extends Model implements SnapshotGetters {
     public function hasEnvironment()
     {
         return is_null($this->environment) ? false : true;
+    }
+
+    /**
+     * Check if the snapshot has any additional data.
+     *
+     * @return boolean
+     */
+    public function hasAdditionalData()
+    {
+        return is_null($this->additional_data) ? false : true;
     }
 
 }
