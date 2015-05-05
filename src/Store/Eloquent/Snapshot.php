@@ -217,7 +217,7 @@ class Snapshot extends Model implements SnapshotGetters {
      */
     public function hasAdditionalData()
     {
-        return is_null($this->additional_data) ? false : true;
+        return ! empty($this->additional_data);
     }
 
     /**

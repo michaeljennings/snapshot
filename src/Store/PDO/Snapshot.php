@@ -205,7 +205,7 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
      */
     public function hasAdditionalData()
     {
-        return is_null($this->attributes['additional_data']) ? false : true;
+        return ! empty ($this->attributes['additional_data']);
     }
 
     /**
