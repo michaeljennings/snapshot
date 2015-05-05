@@ -137,7 +137,7 @@ class Snapshot extends Model implements SnapshotGetters {
      */
     public function getMessage()
     {
-        return $this->message ? json_decode($this->message) : [];
+        return $this->message;
     }
 
     /**
@@ -147,7 +147,7 @@ class Snapshot extends Model implements SnapshotGetters {
      */
     public function getCode()
     {
-        return $this->code ? json_decode($this->code) : [];
+        return $this->code;
     }
 
     /**

@@ -114,7 +114,7 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
      */
     public function getMessage()
     {
-        return ! is_null($this->attributes['message']) ? json_decode($this->attributes['message']) : [];
+        return $this->attributes['message'];
     }
 
     /**
@@ -124,7 +124,7 @@ class Snapshot implements SnapshotGetters, ArrayAccess {
      */
     public function getCode()
     {
-        return ! is_null($this->attributes['code']) ? json_decode($this->attributes['code']) : [];
+        return $this->attributes['code'];
 
     }
 
