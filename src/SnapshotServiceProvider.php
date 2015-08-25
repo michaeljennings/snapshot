@@ -5,13 +5,6 @@ use Illuminate\Support\ServiceProvider;
 class SnapshotServiceProvider extends ServiceProvider {
 
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
-    /**
      * Bootstrap the application events.
      *
      * @return void
@@ -76,16 +69,6 @@ class SnapshotServiceProvider extends ServiceProvider {
         {
             return (new \ReflectionClass($renderer))->newInstanceArgs([$app['view']]);
         });
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['Michaeljennings\Snapshot\Contracts\Snapshot', 'michaeljennings.snapshot'];
     }
 
 }
