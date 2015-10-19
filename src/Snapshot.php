@@ -72,7 +72,9 @@ class Snapshot implements SnapshotContract {
      */
     public function captureException(Exception $e, $message = false, $code = false)
     {
+        $stackTrace = debug_backtrace();
         $snapshot = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
+        $stackTrace = $e->getTrace();
 
         $stackTrace = $e->getTrace();
         $snapshot['message'] = $message ? $message : $e->getMessage();
