@@ -1,5 +1,6 @@
 <?php namespace Michaeljennings\Snapshot;
 
+use Exception;
 use Michaeljennings\Snapshot\Contracts\Store;
 use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotContract;
@@ -36,6 +37,8 @@ class Snapshot implements SnapshotContract {
 
     /**
      * Capture the current state of the application.
+     *
+     * @return int|string
      */
     public function capture()
     {
@@ -56,11 +59,45 @@ class Snapshot implements SnapshotContract {
             }
         }
 
+        return $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
+    }
+
+    /**
+     * Capture an exception, and optionally set a custom message and error code.
+     * 
+     * @param  Exception $e
+     * @param  boolean   $message
+     * @param  boolean   $code 
+     * @return int|string
+     */
+    public function captureException(Exception $e, $message = false, $code = false)
+    {
+        $snapshot = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
+
+        $stackTrace = $e->getTrace();
+        $snapshot['message'] = $message ? $message : $e->getMessage();
+        $snapshot['code'] = $code ? $code : $e->getCode();
+
+        return  $this->storeSnapshot($snapshot, $stackTrace);
+    }
+
+    /**
+     * Store a snapshot and then return its id.
+     * 
+     * @param  array      $snapshot
+     * @param  array      $stackTrace
+     * @param  array|null $additionalData
+     * @return int|string
+     */
+    protected function storeSnapshot(array $snapshot, array $stackTrace, $additionalData = null)
+    {
         $data['snapshot'] = $snapshot;
-        $data['snapshot']['additional_data'] = isset($additionalData) ? json_encode($additionalData) : null;
+        $data['snapshot']['additional_data'] = ! is_null($additionalData) ? json_encode($additionalData) : null;
         $data['items'] = $this->transformStackTrace($stackTrace);
 
-        $this->store->capture($data);
+        $snapshot = $this->store->capture($data);
+
+        return $snapshot->getId();
     }
 
     /**
@@ -100,13 +137,13 @@ class Snapshot implements SnapshotContract {
         return [
             'file' => $file,
             'line' => $line,
-            'server' => json_encode($_SERVER),
+            'server' => ! empty($_SERVER) ? json_encode($_SERVER) : null,
             'post' => ! empty($_POST) ? json_encode($_POST) : null,
             'get' => ! empty($_GET) ? json_encode($_GET) : null,
             'files' => ! empty($_FILES) ? json_encode($_FILES) : null,
             'cookies' => ! empty($_COOKIE) ? json_encode($_COOKIE) : null,
             'session' => ! empty($_SESSION) ? json_encode($_SESSION) : null,
-            'environment' => json_encode($_ENV)
+            'environment' => ! empty($_ENV) ? json_encode($_ENV) : null
         ];
     }
 
