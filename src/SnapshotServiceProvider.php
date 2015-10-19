@@ -19,6 +19,8 @@ class SnapshotServiceProvider extends ServiceProvider {
             __DIR__.'/../config/snapshot.php' => config_path('snapshot.php'),
             __DIR__.'/../database/migrations/' => base_path('database/migrations')
         ]);
+        
+        $this->mergeConfigFrom(__DIR__.'/../config/snapshot.php', 'snapshot');
     }
 
     /**
@@ -28,8 +30,6 @@ class SnapshotServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/snapshot.php', 'snapshot');
-
         $this->registerStore();
         $this->registerRenderer();
 
