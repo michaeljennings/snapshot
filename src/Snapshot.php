@@ -64,28 +64,28 @@ class Snapshot implements SnapshotContract {
 
     /**
      * Capture an exception, and optionally set a custom message and error code.
-     * 
-     * @param  Exception $e
-     * @param  boolean   $message
-     * @param  boolean   $code 
+     *
+     * @param  Exception  $e
+     * @param  boolean    $message
+     * @param  boolean    $code
+     * @param  array|null $additionalData
      * @return int|string
      */
-    public function captureException(Exception $e, $message = false, $code = false)
+    public function captureException(Exception $e, $message = false, $code = false, $additionalData = null)
     {
         $stackTrace = debug_backtrace();
         $snapshot = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
         $stackTrace = $e->getTrace();
 
-        $stackTrace = $e->getTrace();
         $snapshot['message'] = $message ? $message : $e->getMessage();
         $snapshot['code'] = $code ? $code : $e->getCode();
 
-        return  $this->storeSnapshot($snapshot, $stackTrace);
+        return $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
     }
 
     /**
      * Store a snapshot and then return its id.
-     * 
+     *
      * @param  array      $snapshot
      * @param  array      $stackTrace
      * @param  array|null $additionalData
@@ -129,12 +129,11 @@ class Snapshot implements SnapshotContract {
     /**
      * Get the data needed to create a snapshot.
      *
-     * @param $file
-     * @param $line
-     * @param array $additionalData
+     * @param       $file
+     * @param       $line
      * @return array
      */
-    protected function getSnapshotData($file, $line, array $additionalData = [])
+    protected function getSnapshotData($file, $line)
     {
         return [
             'file' => $file,
@@ -174,9 +173,13 @@ class Snapshot implements SnapshotContract {
      */
     protected function transformTrace(array $trace)
     {
-        if (isset($trace['object'])) $trace['object'] = json_encode($trace['object']);
+        if (isset($trace['object'])) {
+            $trace['object'] = json_encode($trace['object']);
+        }
 
-        if (isset($trace['args'])) $trace['args'] = json_encode($trace['args']);
+        if (isset($trace['args'])) {
+            $trace['args'] = json_encode($trace['args']);
+        }
 
         return $trace;
     }
@@ -202,5 +205,5 @@ class Snapshot implements SnapshotContract {
     {
         return $stackTrace[0]['line'];
     }
-	
+
 }
