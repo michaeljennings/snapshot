@@ -11,7 +11,7 @@ interface Dispatcher
      * @param array $data
      * @return \League\Event\EventInterface
      */
-    public function emit($event, array $data);
+    public function emit($event, array $data = []);
 
     /**
      * Add an event listener.
