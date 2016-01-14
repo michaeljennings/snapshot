@@ -2,8 +2,6 @@
 
 namespace Michaeljennings\Snapshot\Events;
 
-use Michaeljennings\Snapshot\Contracts\Snapshot;
-
 class SnapshotCaptured extends Event
 {
     /**
@@ -13,7 +11,7 @@ class SnapshotCaptured extends Event
      */
     protected $snapshot;
 
-    public function __construct(Snapshot $snapshot)
+    public function __construct($snapshot)
     {
         $this->snapshot = $snapshot;
 
