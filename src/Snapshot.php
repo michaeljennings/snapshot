@@ -60,7 +60,7 @@ class Snapshot implements SnapshotContract
 
         foreach ($this->listeners as $event => $listeners) {
             foreach ($listeners as $listener) {
-                $this->addListener($event, new $listener);
+                $this->addListener($event, new $listener($config));
             }
         }
     }
