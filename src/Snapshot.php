@@ -8,6 +8,7 @@ use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotStore;
 use Michaeljennings\Snapshot\Contracts\Store;
 use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotContract;
+use Michaeljennings\Snapshot\Events\SnapshotCaptured;
 
 class Snapshot implements SnapshotContract
 {
@@ -39,12 +40,29 @@ class Snapshot implements SnapshotContract
      */
     protected $config;
 
+    /**
+     * The default event listeners.
+     *
+     * @var array
+     */
+    protected $listeners = [
+        'Michaeljennings\Snapshot\Events\SnapshotCaptured' => [
+            'Michaeljennings\Snapshot\Listeners\SendToSlack'
+        ]
+    ];
+
     public function __construct(Store $store, Renderer $renderer, Dispatcher $dispatcher, array $config)
     {
         $this->store = $store;
         $this->renderer = $renderer;
         $this->dispatcher = $dispatcher;
         $this->config = $config;
+
+        foreach ($this->listeners as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                $this->addListener($event, new $listener);
+            }
+        }
     }
 
     /**
@@ -59,7 +77,7 @@ class Snapshot implements SnapshotContract
 
         $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
 
-
+        $this->dispatcher->emit(new SnapshotCaptured($snapshot));
 
         return $snapshot->getId();
     }
@@ -82,6 +100,8 @@ class Snapshot implements SnapshotContract
         $snapshot['code'] = $code ? $code : $e->getCode();
 
         $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
+
+        $this->dispatcher->emit(new SnapshotCaptured($snapshot));
 
         return $snapshot->getId();
     }
@@ -237,5 +257,19 @@ class Snapshot implements SnapshotContract
     protected function getCalledLine(array $stackTrace)
     {
         return $stackTrace[0]['line'];
+    }
+
+    /**
+     * Add an event listener.
+     *
+     * @param mixed $event
+     * @param mixed $listener
+     * @return $this
+     */
+    public function addListener($event, $listener)
+    {
+        $this->dispatcher->listen($event, $listener);
+
+        return $this;
     }
 }
