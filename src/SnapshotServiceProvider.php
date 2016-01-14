@@ -1,9 +1,12 @@
-<?php namespace Michaeljennings\Snapshot; 
+<?php
+
+namespace Michaeljennings\Snapshot;
 
 use Illuminate\Support\ServiceProvider;
+use League\Event\Emitter;
 
-class SnapshotServiceProvider extends ServiceProvider {
-
+class SnapshotServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap the application events.
      *
@@ -12,15 +15,15 @@ class SnapshotServiceProvider extends ServiceProvider {
     public function boot()
     {
         // Set the directory to load views from
-        $this->loadViewsFrom(__DIR__.'/../views', 'snapshot');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'snapshot');
 
         // Set the files to publish
         $this->publishes([
-            __DIR__.'/../config/snapshot.php' => config_path('snapshot.php'),
-            __DIR__.'/../database/migrations/' => base_path('database/migrations')
+            __DIR__ . '/../config/snapshot.php' => config_path('snapshot.php'),
+            __DIR__ . '/../database/migrations/' => base_path('database/migrations')
         ]);
-        
-        $this->mergeConfigFrom(__DIR__.'/../config/snapshot.php', 'snapshot');
+
+        $this->mergeConfigFrom(__DIR__ . '/../config/snapshot.php', 'snapshot');
     }
 
     /**
@@ -32,12 +35,13 @@ class SnapshotServiceProvider extends ServiceProvider {
     {
         $this->registerStore();
         $this->registerRenderer();
+        $this->registerDispatcher();
 
-        $this->app->singleton('Michaeljennings\Snapshot\Contracts\Snapshot', function($app)
-        {
+        $this->app->singleton('Michaeljennings\Snapshot\Contracts\Snapshot', function ($app) {
             return new Snapshot(
                 $app['Michaeljennings\Snapshot\Contracts\Store'],
                 $app['Michaeljennings\Snapshot\Contracts\Renderer'],
+                $app['Michaeljennings\Snapshot\Contracts\Dispatcher'],
                 config('snapshot')
             );
         });
@@ -52,8 +56,7 @@ class SnapshotServiceProvider extends ServiceProvider {
     {
         $store = config('snapshot.store.class');
 
-        $this->app->bind('Michaeljennings\Snapshot\Contracts\Store', function() use ($store)
-        {
+        $this->app->bind('Michaeljennings\Snapshot\Contracts\Store', function () use ($store) {
             return (new \ReflectionClass($store))->newInstanceArgs([config('snapshot')]);
         });
     }
@@ -65,10 +68,18 @@ class SnapshotServiceProvider extends ServiceProvider {
     {
         $renderer = config('snapshot.renderer');
 
-        $this->app->bind('Michaeljennings\Snapshot\Contracts\Renderer', function($app) use($renderer)
-        {
+        $this->app->bind('Michaeljennings\Snapshot\Contracts\Renderer', function ($app) use ($renderer) {
             return (new \ReflectionClass($renderer))->newInstanceArgs([$app['view']]);
         });
     }
 
+    /**
+     * Register the snapshot event dispatcher.
+     */
+    protected function registerDispatcher()
+    {
+        $this->app->singleton('Michaeljennings\Snapshot\Contracts\Dispatcher', function() {
+            return new Dispatcher(new Emitter());
+        });
+    }
 }
