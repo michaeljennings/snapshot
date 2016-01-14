@@ -1,26 +1,36 @@
-<?php namespace Michaeljennings\Snapshot;
+<?php
+
+namespace Michaeljennings\Snapshot;
 
 use Exception;
+use Michaeljennings\Snapshot\Contracts\Dispatcher;
 use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotStore;
 use Michaeljennings\Snapshot\Contracts\Store;
 use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotContract;
 
-class Snapshot implements SnapshotContract {
-
+class Snapshot implements SnapshotContract
+{
     /**
-     * An instance of a snapshot store.
+     * The snapshot store implementation.
      *
      * @var Store
      */
     protected $store;
 
     /**
-     * An instance of a snapshot renderer.
+     * The snapshot renderer implementation.
      *
      * @var Renderer
      */
     protected $renderer;
+
+    /**
+     * The event dispatcher implementation.
+     *
+     * @var Dispatcher
+     */
+    protected $dispatcher;
 
     /**
      * The package configuration.
@@ -29,10 +39,11 @@ class Snapshot implements SnapshotContract {
      */
     protected $config;
 
-    public function __construct(Store $store, Renderer $renderer, array $config)
+    public function __construct(Store $store, Renderer $renderer, Dispatcher $dispatcher, array $config)
     {
         $this->store = $store;
         $this->renderer = $renderer;
+        $this->dispatcher = $dispatcher;
         $this->config = $config;
     }
 
@@ -47,6 +58,8 @@ class Snapshot implements SnapshotContract {
         list($stackTrace, $additionalData) = $this->formatArguments(func_get_args());
 
         $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
+
+
 
         return $snapshot->getId();
     }
