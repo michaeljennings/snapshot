@@ -31,7 +31,7 @@ class Dispatcher implements DispatcherContract
      * @param array $data
      * @return \League\Event\EventInterface
      */
-    public function emit($event, array $data)
+    public function emit($event, array $data = [])
     {
         return $this->emitter->emit($event, $data);
     }
