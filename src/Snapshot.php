@@ -1,6 +1,7 @@
 <?php namespace Michaeljennings\Snapshot;
 
 use Exception;
+use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotStore;
 use Michaeljennings\Snapshot\Contracts\Store;
 use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Contracts\Snapshot as SnapshotContract;
@@ -42,24 +43,12 @@ class Snapshot implements SnapshotContract {
      */
     public function capture()
     {
-        $args = func_get_args();
-        $additionalData = [];
-        $stackTrace = debug_backtrace();
-        $snapshot = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
+        $snapshot = $this->getServerInfo();
+        list($stackTrace, $additionalData) = $this->formatArguments(func_get_args());
 
-        foreach ($args as $arg) {
-            if ($arg instanceof \Exception) {
-                $stackTrace = $arg->getTrace();
-                $snapshot['message'] = $arg->getMessage();
-                $snapshot['code'] = $arg->getCode();
-            }
+        $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
 
-            if (is_array($arg)) {
-                $additionalData = array_merge($additionalData, $arg);
-            }
-        }
-
-        return $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
+        return $snapshot->getId();
     }
 
     /**
@@ -73,31 +62,13 @@ class Snapshot implements SnapshotContract {
      */
     public function captureException(Exception $e, $message = false, $code = false, $additionalData = null)
     {
-        $stackTrace = debug_backtrace();
-        $snapshot = $this->getSnapshotData($this->getCalledFile($stackTrace), $this->getCalledLine($stackTrace));
+        $snapshot = $this->getServerInfo();
         $stackTrace = $e->getTrace();
 
         $snapshot['message'] = $message ? $message : $e->getMessage();
         $snapshot['code'] = $code ? $code : $e->getCode();
 
-        return $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
-    }
-
-    /**
-     * Store a snapshot and then return its id.
-     *
-     * @param  array      $snapshot
-     * @param  array      $stackTrace
-     * @param  array|null $additionalData
-     * @return int|string
-     */
-    protected function storeSnapshot(array $snapshot, array $stackTrace, $additionalData = null)
-    {
-        $data['snapshot'] = $snapshot;
-        $data['snapshot']['additional_data'] = ! is_null($additionalData) ? json_encode($additionalData) : null;
-        $data['items'] = $this->transformStackTrace($stackTrace);
-
-        $snapshot = $this->store->capture($data);
+        $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
 
         return $snapshot->getId();
     }
@@ -127,14 +98,63 @@ class Snapshot implements SnapshotContract {
     }
 
     /**
-     * Get the data needed to create a snapshot.
+     * Store a snapshot and then return its id.
      *
-     * @param       $file
-     * @param       $line
+     * @param  array      $snapshot
+     * @param  array      $stackTrace
+     * @param  array|null $additionalData
+     * @return SnapshotStore
+     */
+    protected function storeSnapshot(array $snapshot, array $stackTrace, $additionalData = null)
+    {
+        $data['snapshot'] = $snapshot;
+        $data['snapshot']['additional_data'] = ! is_null($additionalData) ? json_encode($additionalData) : null;
+        $data['items'] = $this->transformStackTrace($stackTrace);
+
+        return $this->store->capture($data);
+    }
+
+    /**
+     * Format the captured arguments.
+     *
+     * @param array $args
      * @return array
      */
-    protected function getSnapshotData($file, $line)
+    protected function formatArguments(array $args)
     {
+        $additionalData = [];
+
+        foreach ($args as $arg) {
+            if ($arg instanceof \Exception) {
+                $stackTrace = $arg->getTrace();
+                $snapshot['message'] = $arg->getMessage();
+                $snapshot['code'] = $arg->getCode();
+            }
+
+            if (is_array($arg)) {
+                $additionalData = array_merge($additionalData, $arg);
+            }
+        }
+
+        if ( ! isset($stackTrace)) {
+            $stackTrace = debug_backtrace();
+        }
+
+        return [$stackTrace, $additionalData];
+    }
+
+    /**
+     * Get the data needed to create a snapshot.
+     *
+     * @return array
+     */
+    protected function getServerInfo()
+    {
+        $stackTrace = debug_backtrace();
+
+        $file = $this->getCalledFile($stackTrace);
+        $line = $this->getCalledLine($stackTrace);
+
         return [
             'file' => $file,
             'line' => $line,
@@ -205,5 +225,4 @@ class Snapshot implements SnapshotContract {
     {
         return $stackTrace[0]['line'];
     }
-
 }
