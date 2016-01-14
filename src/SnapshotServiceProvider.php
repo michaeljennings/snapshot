@@ -46,7 +46,7 @@ class SnapshotServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->alias('Michaeljennings\Snapshot\Contracts\Snapshot', 'michaeljennings.snapshot');
+        $this->app->alias('Michaeljennings\Snapshot\Contracts\Snapshot', 'snapshot');
     }
 
     /**
