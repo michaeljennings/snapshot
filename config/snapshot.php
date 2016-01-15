@@ -79,7 +79,6 @@ return [
                     'username' => 'user',
                     'password' => 'secret',
                     'db' => 'database'
-
                 ]
 
             ]
