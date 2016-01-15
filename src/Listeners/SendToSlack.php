@@ -3,6 +3,8 @@
 namespace Michaeljennings\Snapshot\Listeners;
 
 use League\Event\EventInterface;
+use Maknz\Slack\Client;
+use Michaeljennings\Snapshot\Exceptions\EndPointNotSetException;
 
 class SendToSlack extends Listener
 {
@@ -11,11 +13,19 @@ class SendToSlack extends Listener
      * channel.
      *
      * @param EventInterface $event
+     * @throws EndPointNotSetException
      */
     public function handle(EventInterface $event)
     {
         if ($this->config['slack']['enabled']) {
-            dd('i got here');
+            if (empty($this->config['slack']['endpoint'])) {
+                throw new EndPointNotSetException("You must set the endpoint for your slack channel.");
+            }
+
+            $client = new Client($this->config['slack']['endpoint'], $this->config['slack']['settings']);
+            $snapshot = $event->getSnapshot();
+
+            $client->send('A new snapshot has been captured. #' . $snapshot->getId());
         }
     }
 }
