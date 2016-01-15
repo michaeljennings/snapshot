@@ -68,12 +68,29 @@ public function __construct(Michaeljennings\Snapshot\Contracts\Snapshot $snapsho
 ```
 
 ## Usage
+To get started we first need to instantiate the snapshot class. If you are using the laravel integration this is done for you when you register the service provider.
+
+```php
+// Require the composer autoload
+require "vendor/autoload.php";
+
+// Get the package config
+$config = require "path/to/config/snapshot.php";
+
+// Instantiate the dependencies 
+$store = new $config['store']['class']($config);
+$renderer = new $config['renderer'];
+$dispatcher = new \Michaeljennings\Snapshot\Dispatcher(new \League\Event\Emitter());
+
+// Create the snapshot class
+$snapshot = new Snapshot($store, $renderer, $dispatcher, $config);
+```
 
 ### Taking a Snapshot
 To take a snapshot of your application use the `capture` method.
 
 ```php
-$snapshot = new Snapshot($store, $renderer, $config);
+$snapshot = new Snapshot($store, $renderer, $dispatcher, $config);
 
 $snapshot->capture();
 ```
