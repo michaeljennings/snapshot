@@ -37,6 +37,6 @@ class SendToSlack extends Listener
      */
     protected function getMessage($snapshot)
     {
-        return 'A new snapshot has been captured. #' . $snapshot->getId();
+        return '#' . $snapshot->getId() . ' A new snapshot has been captured';
     }
 }
