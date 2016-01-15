@@ -26,7 +26,7 @@ This package requires PHP 5.4+ and includes laravel support.
 To install through composer you can either use `composer require michaeljennings/snapshot` or include the package in your `composer.json`.
 
 ```php
-"michaeljennings/snapshot": "0.2.*"
+"michaeljennings/snapshot": "0.3.*"
 ```
 
 Then run either `composer install` or `composer update` to download the package.
