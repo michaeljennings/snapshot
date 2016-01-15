@@ -1,5 +1,16 @@
-# Snapshot [![Latest Stable Version](https://poser.pugx.org/michaeljennings/snapshot/v/stable)](https://packagist.org/packages/michaeljennings/snapshot) [![Latest Unstable Version](https://poser.pugx.org/michaeljennings/snapshot/v/unstable)](https://packagist.org/packages/michaeljennings/snapshot) [![License](https://poser.pugx.org/michaeljennings/snapshot/license)](https://packagist.org/packages/michaeljennings/snapshot)
+# Snapshot [![Latest Stable Version](https://poser.pugx.org/michaeljennings/snapshot/v/stable)](https://packagist.org/packages/michaeljennings/snapshot) [![License](https://poser.pugx.org/michaeljennings/snapshot/license)](https://packagist.org/packages/michaeljennings/snapshot)
 A PHP package that stores a [whoops-like](https://github.com/filp/whoops) snapshot of your application and allows you to retrieve it later to help with debugging.
+
+The package also comes with Slack integration so you can receive notifications whenever a snapshot is captured.
+
+- [Planned Features](#planned-features)
+- [Installation](#installation)
+- [Laravel Integration](#laravel-integration)
+- [Usage](#usage)
+    - [Taking a Snapshot](#taking-a-snapshot)
+    - [Rendering a Snapshot](#rendering-a-snapshot)
+    - [Finding a Snapshot](#finding-a-snapshot)
+- [Slack Integration](#slack-integration)
 
 ## Planned Features
 
@@ -7,12 +18,12 @@ A PHP package that stores a [whoops-like](https://github.com/filp/whoops) snapsh
 - More views to choose from
 
 ## Installation
-This package requires PHP 5.4+ and includes laravel 5 support.
+This package requires PHP 5.4+ and includes laravel 5+ support.
 
 To install through composer you can either use `composer require michaeljennings/snapshot` or include the package in your `composer.json`.
 
 ```php
-"michaeljennings/snapshot": "~0.1"
+"michaeljennings/snapshot": "0.2.*"
 ```
 
 Then run either `composer install` or `composer update` to download the package.
@@ -73,6 +84,14 @@ If you want to store any additional data, i.e. the current user, you can pass an
 $snapshot->capture(['user_id' => 1]);
 ```
 
+If you are specifically capturing an exception you can use the `captureException` method. The benefit of this method is you can override the exception message and code by passing them in. You can still store any additional data by passing it as the 4th parameter.
+
+```php 
+$snapshot->captureException($exception);
+
+$snapshot->captureException($exception, 500, 'Internal Server Error', ['user_id' => 1]);
+```
+
 ### Rendering a Snapshot
 To render a snapshot use the `render` method, this takes one parameter which is the id of the snapshot.
 
@@ -87,3 +106,11 @@ Alternatively if you want to choose how to render the snapshot yourself you can 
 ```php
 $snapshot->find(1);
 ```
+
+## Slack Integration
+
+Snapshot also comes with Slack support through the excellent [mankz/slack](https://github.com/maknz/slack/) package.
+
+In your config file just enable slack integration, and then add in your [incoming webhook endpoint](https://my.slack.com/services/new/incoming-webhook), channel, and username and you shall start receiving slack messages whenever a snapshot is captured.
+ 
+This is very useful for catching errors before they are reported.
