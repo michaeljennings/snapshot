@@ -37,12 +37,14 @@ class SnapshotServiceProvider extends ServiceProvider
         $this->registerRenderer();
         $this->registerDispatcher();
 
-        $this->app->singleton('Michaeljennings\Snapshot\Contracts\Snapshot', function ($app) {
+        $config = $this->getConfig();
+
+        $this->app->singleton('Michaeljennings\Snapshot\Contracts\Snapshot', function ($app) use ($config) {
             return new Snapshot(
                 $app['Michaeljennings\Snapshot\Contracts\Store'],
                 $app['Michaeljennings\Snapshot\Contracts\Renderer'],
                 $app['Michaeljennings\Snapshot\Contracts\Dispatcher'],
-                config('snapshot')
+                $config
             );
         });
 
@@ -54,10 +56,10 @@ class SnapshotServiceProvider extends ServiceProvider
      */
     protected function registerStore()
     {
-        $store = config('snapshot.store.class');
+        $store = $this->getConfig()['store']['class'];
 
         $this->app->bind('Michaeljennings\Snapshot\Contracts\Store', function () use ($store) {
-            return (new \ReflectionClass($store))->newInstanceArgs([config('snapshot')]);
+            return (new \ReflectionClass($store))->newInstanceArgs([$this->getConfig()]);
         });
     }
 
@@ -66,7 +68,7 @@ class SnapshotServiceProvider extends ServiceProvider
      */
     protected function registerRenderer()
     {
-        $renderer = config('snapshot.renderer');
+        $renderer = $this->getConfig()['renderer'];
 
         $this->app->bind('Michaeljennings\Snapshot\Contracts\Renderer', function ($app) use ($renderer) {
             return (new \ReflectionClass($renderer))->newInstanceArgs([$app['view']]);
@@ -81,5 +83,15 @@ class SnapshotServiceProvider extends ServiceProvider
         $this->app->singleton('Michaeljennings\Snapshot\Contracts\Dispatcher', function() {
             return new Dispatcher(new Emitter());
         });
+    }
+
+    /**
+     * Get the package config.
+     *
+     * @return array
+     */
+    protected function getConfig()
+    {
+        return config('snapshot');
     }
 }
