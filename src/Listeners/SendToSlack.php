@@ -23,9 +23,20 @@ class SendToSlack extends Listener
             }
 
             $client = new Client($this->config['slack']['endpoint'], $this->config['slack']['settings']);
-            $snapshot = $event->getSnapshot();
 
-            $client->send('A new snapshot has been captured. #' . $snapshot->getId());
+            $client->send($this->getMessage($event->getSnapshot()));
         }
+    }
+
+    /**
+     * Get the slack message for the snapshot. If you wish to use markdown
+     * then set the allow_markdown config option to true.
+     *
+     * @param mixed $snapshot
+     * @return string
+     */
+    protected function getMessage($snapshot)
+    {
+        return 'A new snapshot has been captured. #' . $snapshot->getId();
     }
 }
