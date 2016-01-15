@@ -68,7 +68,9 @@ public function __construct(Michaeljennings\Snapshot\Contracts\Snapshot $snapsho
 ```
 
 ## Usage
-To get started we first need to instantiate the snapshot class. If you are using the laravel integration this is done for you when you register the service provider.
+To get started we first need to instantiate the snapshot class. 
+
+If you are using the laravel integration this is done for you when you register the service provider.
 
 ```php
 // Require the composer autoload
