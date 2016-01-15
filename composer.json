@@ -1,6 +1,6 @@
 {
   "name": "michaeljennings/snapshot",
-  "version": "0.2",
+  "version": "v0.2",
   "description": "A PHP package that takes a snapshot of your application and allows you to retrieve it later to help with debugging.",
   "keywords": [
     "debugging",
