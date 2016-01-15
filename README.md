@@ -137,7 +137,8 @@ To add one into the config set the key as the event you are subscribing to, and 
 'listeners' => [
 
     'Michaeljennings\Snapshot\Events\SnapshotCaptured' => [
-        'Michaeljennings\Snapshot\Listeners\SendToSlack'
+        'Michaeljennings\Snapshot\Listeners\SendToSlack',
+        'MyCustomListener'
     ]
 
 ]
