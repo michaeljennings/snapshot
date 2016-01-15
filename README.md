@@ -11,6 +11,8 @@ The package also comes with Slack integration so you can receive notifications w
     - [Rendering a Snapshot](#rendering-a-snapshot)
     - [Finding a Snapshot](#finding-a-snapshot)
 - [Slack Integration](#slack-integration)
+    - [Customising the Message](#customising-the-message)
+- [Adding Event Listeners](#adding-event-listeners)
 
 ## Planned Features
 
@@ -114,3 +116,39 @@ Snapshot also comes with Slack support through the excellent [mankz/slack](https
 In your config file just enable slack integration, and then add in your [incoming webhook endpoint](https://my.slack.com/services/new/incoming-webhook), channel, and username and you shall start receiving slack messages whenever a snapshot is captured.
  
 This is very useful for catching errors before they are reported.
+
+### Customising the Message
+
+By default the message will be `#{snapshot-id} A new snapshot has been captured`. 
+
+If you want to customise this message then you can extend the `Michaeljennings\Snapshot\Listeners\SendToSlack.php` event listener and override the `getMessage` method. 
+
+Then you simply need to update the listener subscribed in the snapshot config to the `Michaeljennings\Snapshot\Events\SnapshotCaptured` event to your new listener.
+
+## Adding Event Listeners
+
+It is possible that you want something to happen every time a snapshot is captured. An example of this is how we send a message to slack whenever a snapshot is captured.
+  
+To do this we add in event listeners. There are two ways we can go about this, either you can subscribe you listeners in the `listeners` array in the config, or you can call the `addListener` method on the slack class.
+
+To add one into the config set the key as the event you are subscribing to, and the value as an array of listeners.
+
+```php
+'listeners' => [
+
+    'Michaeljennings\Snapshot\Events\SnapshotCaptured' => [
+        'Michaeljennings\Snapshot\Listeners\SendToSlack'
+    ]
+
+]
+```
+
+To subscribe a listener using the `addListener` method pass the event name you are subscribing to as the first parameter, and then either a class name or a closure to use as a listener.
+
+```php
+$snapshot->addListener('Michaeljennings\Snapshot\Events\SnapshotCaptured', 'Michaeljennings\Snapshot\Listeners\SendToSlack');
+
+$snapshot->addListener('Michaeljennings\Snapshot\Events\SnapshotCaptured', function($event) {
+    // Handle event
+});
+```
