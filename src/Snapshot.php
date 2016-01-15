@@ -51,6 +51,14 @@ class Snapshot implements SnapshotContract
         ]
     ];
 
+    /**
+     * Snapshot constructor.
+     *
+     * @param Store      $store
+     * @param Renderer   $renderer
+     * @param Dispatcher $dispatcher
+     * @param array      $config
+     */
     public function __construct(Store $store, Renderer $renderer, Dispatcher $dispatcher, array $config)
     {
         $this->store = $store;
