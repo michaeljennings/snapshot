@@ -209,6 +209,25 @@ return [
             'allow_markdown' => true,
 
         ]
+    ],
+
+    /**
+     * ---------------------------------------------------------------------
+     *  Event Listeners
+     * ---------------------------------------------------------------------
+     *
+     * Here you can register any event listeners for the package. The
+     * SendToSlack listener is added by default to handle sending snapshots
+     * to slack.
+     *
+     */
+
+    'listeners' => [
+
+        'Michaeljennings\Snapshot\Events\SnapshotCaptured' => [
+            'Michaeljennings\Snapshot\Listeners\SendToSlack'
+        ]
+
     ]
 
 ];

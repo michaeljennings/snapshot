@@ -41,17 +41,6 @@ class Snapshot implements SnapshotContract
     protected $config;
 
     /**
-     * The default event listeners.
-     *
-     * @var array
-     */
-    protected $listeners = [
-        'Michaeljennings\Snapshot\Events\SnapshotCaptured' => [
-            'Michaeljennings\Snapshot\Listeners\SendToSlack'
-        ]
-    ];
-
-    /**
      * Snapshot constructor.
      *
      * @param Store      $store
@@ -66,7 +55,7 @@ class Snapshot implements SnapshotContract
         $this->dispatcher = $dispatcher;
         $this->config = $config;
 
-        foreach ($this->listeners as $event => $listeners) {
+        foreach ($this->config['listeners'] as $event => $listeners) {
             foreach ($listeners as $listener) {
                 $this->addListener($event, new $listener($config));
             }
