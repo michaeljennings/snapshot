@@ -6,6 +6,7 @@ The package also comes with Slack integration so you can receive notifications w
 - [Planned Features](#planned-features)
 - [Installation](#installation)
 - [Laravel Integration](#laravel-integration)
+    - [Laravel 4 Integration](#laravel-4-integration)
 - [Usage](#usage)
     - [Taking a Snapshot](#taking-a-snapshot)
     - [Rendering a Snapshot](#rendering-a-snapshot)
@@ -20,7 +21,7 @@ The package also comes with Slack integration so you can receive notifications w
 - More views to choose from
 
 ## Installation
-This package requires PHP 5.4+ and includes laravel 5+ support.
+This package requires PHP 5.4+ and includes laravel support.
 
 To install through composer you can either use `composer require michaeljennings/snapshot` or include the package in your `composer.json`.
 
@@ -32,7 +33,7 @@ Then run either `composer install` or `composer update` to download the package.
 
 ## Laravel Integration
 
-To use the package with Laravel 5 add the snapshot service provider to the list of service providers in `app/config/app.php`.
+To use the package with Laravel 5 add the snapshot service provider to the list of service providers in `config/app.php`.
 
 ```php
 'providers' => array(
@@ -55,6 +56,43 @@ Then add the `Snapshot` facade to the aliases array.
 Then use `php artisan vendor:publish` to publish the config and database migrations. 
 
 The package comes with database migrations if you want to use a database store. To run the migrations use `php artisan migrate` to set up the snapshot database tables.
+
+To use the package you can either use the `Snapshot` facade or if you prefer using dependency injection snapshot is bound to the IOC container by its interface.
+
+```php
+Snapshot::capture();
+
+public function __construct(Michaeljennings\Snapshot\Contracts\Snapshot $snapshot)
+{
+    $this->snapshot = $snapshot;
+}
+```
+
+### Laravel 4 Integration
+
+To use the package with Laravel 4 add the snapshot service provider to the list of service providers in `app/config/app.php`.
+
+```php
+'providers' => array(
+
+  'Michaeljennings\Snapshot\Laravel4ServiceProvider'
+  
+);
+```
+
+Then add the `Snapshot` facade to the aliases array.
+
+```php
+'aliases' => array(
+
+  'Snapshot' => 'Michaeljennings\Snapshot\Facades\Snapshot',
+
+);
+```
+
+Then use `php artisan config:publish --path=vendor/michaeljennings/snapshot/config michaeljennings/snapshot` to publish the config. 
+
+The package comes with database migrations if you want to use a database store. To run the migrations use `php artisan migrate --package="michaeljennings/snapshot" --path=vendor/michaeljennings/snapshot/database/migrations` to set up the snapshot database tables.
 
 To use the package you can either use the `Snapshot` facade or if you prefer using dependency injection snapshot is bound to the IOC container by its interface.
 
