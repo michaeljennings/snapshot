@@ -1,7 +1,9 @@
-<?php namespace Michaeljennings\Snapshot\Contracts;
+<?php
 
-interface Store {
+namespace Michaeljennings\Snapshot\Contracts;
 
+interface Store
+{
     /**
      * Store the current state of the application.
      *
@@ -9,5 +11,4 @@ interface Store {
      * @return mixed
      */
     public function capture(array $input);
-
 }

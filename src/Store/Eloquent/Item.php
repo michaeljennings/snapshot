@@ -1,9 +1,11 @@
-<?php namespace Michaeljennings\Snapshot\Store\Eloquent; 
+<?php
+
+namespace Michaeljennings\Snapshot\Store\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model {
-
+class Item extends Model
+{
     /**
      * The database table to be used by the model.
      *
@@ -16,8 +18,16 @@ class Item extends Model {
      *
      * @var array
      */
-    protected $fillable = ['snapshot_id', 'file', 'line', 'function', 'class',
-        'object', 'type', 'args'];
+    protected $fillable = [
+        'snapshot_id',
+        'file',
+        'line',
+        'function',
+        'class',
+        'object',
+        'type',
+        'args'
+    ];
 
     /**
      * Set whether the database table has timestamps.
@@ -35,5 +45,4 @@ class Item extends Model {
     {
         return $this->belongsTo('Michaeljennings\Snapshot\Store\Eloquent\Snapshot');
     }
-
 }

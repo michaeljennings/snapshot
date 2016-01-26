@@ -1,11 +1,13 @@
-<?php namespace Michaeljennings\Snapshot\Store\PDO; 
+<?php
+
+namespace Michaeljennings\Snapshot\Store\PDO;
 
 use PDO;
 use DateTime;
 use Michaeljennings\Snapshot\Store\AbstractStore;
 
-class Store extends AbstractStore {
-
+class Store extends AbstractStore
+{
     /**
      * The PDO connection.
      *
@@ -41,7 +43,7 @@ class Store extends AbstractStore {
     /**
      * Create a new snapshot item.
      *
-     * @param $snapshotId
+     * @param       $snapshotId
      * @param array $input
      * @return Item
      */
@@ -93,7 +95,7 @@ class Store extends AbstractStore {
     /**
      * Insert into the provided database table the provided data.
      *
-     * @param $table
+     * @param       $table
      * @param array $input
      */
     protected function insert($table, array $input)
@@ -185,7 +187,8 @@ class Store extends AbstractStore {
         $driver = $config['connection'];
         $config = $config['connections'][$driver];
 
-        $pdo = new PDO("{$driver}:host={$config['host']};dbname={$config['db']}", $config['username'], $config['password']);
+        $pdo = new PDO("{$driver}:host={$config['host']};dbname={$config['db']}", $config['username'],
+            $config['password']);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
@@ -200,5 +203,4 @@ class Store extends AbstractStore {
     {
         return $this->pdo;
     }
-
 }

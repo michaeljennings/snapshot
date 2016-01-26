@@ -1,10 +1,12 @@
-<?php namespace Michaeljennings\Snapshot\Store\Eloquent; 
+<?php
+
+namespace Michaeljennings\Snapshot\Store\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Michaeljennings\Snapshot\Contracts\SnapshotGetters;
 
-class Snapshot extends Model implements SnapshotGetters {
-
+class Snapshot extends Model implements SnapshotGetters
+{
     /**
      * The database table to be used by the model.
      *
@@ -17,8 +19,20 @@ class Snapshot extends Model implements SnapshotGetters {
      *
      * @var array
      */
-    protected $fillable = ['file', 'line', 'server', 'post', 'get', 'files', 'cookies',
-        'session', 'environment', 'additional_data', 'message', 'code'];
+    protected $fillable = [
+        'file',
+        'line',
+        'server',
+        'post',
+        'get',
+        'files',
+        'cookies',
+        'session',
+        'environment',
+        'additional_data',
+        'message',
+        'code'
+    ];
 
     /**
      * The snapshot items relationship.
@@ -239,6 +253,4 @@ class Snapshot extends Model implements SnapshotGetters {
     {
         return is_null($this->code) ? false : true;
     }
-
-
 }

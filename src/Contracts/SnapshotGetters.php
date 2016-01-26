@@ -1,7 +1,9 @@
-<?php namespace Michaeljennings\Snapshot\Contracts;
+<?php
 
-interface SnapshotGetters {
+namespace Michaeljennings\Snapshot\Contracts;
 
+interface SnapshotGetters
+{
     /**
      * Return this id.
      *
@@ -122,10 +124,10 @@ interface SnapshotGetters {
     public function hasAdditionalData();
 
     /**
- * Get a message for the snapshot.
- *
- * @return array|mixed
- */
+     * Get a message for the snapshot.
+     *
+     * @return array|mixed
+     */
     public function getMessage();
 
     /**
@@ -148,5 +150,4 @@ interface SnapshotGetters {
      * @return boolean
      */
     public function hasCode();
-
 }

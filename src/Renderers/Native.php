@@ -1,14 +1,21 @@
-<?php namespace Michaeljennings\Snapshot\Renderers; 
+<?php
+
+namespace Michaeljennings\Snapshot\Renderers;
 
 use Michaeljennings\Snapshot\Contracts\Renderer;
 use Michaeljennings\Snapshot\Exceptions\ViewNotFoundException;
 
-class Native implements Renderer {
+class Native implements Renderer
+{
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Return the required view
      *
-     * @param $view
+     * @param       $view
      * @param array $data
      * @return string
      * @throws ViewNotFoundException
@@ -29,5 +36,4 @@ class Native implements Renderer {
         // Return the content
         return $content;
     }
-
 }

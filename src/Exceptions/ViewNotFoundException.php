@@ -1,5 +1,10 @@
-<?php namespace Michaeljennings\Snapshot\Exceptions; 
+<?php
 
-class ViewNotFoundException extends \Exception {
+namespace Michaeljennings\Snapshot\Exceptions;
+
+use Exception;
+
+class ViewNotFoundException extends Exception
+{
 
 }

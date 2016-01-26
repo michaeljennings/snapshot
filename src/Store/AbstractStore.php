@@ -1,9 +1,11 @@
-<?php namespace Michaeljennings\Snapshot\Store; 
+<?php
+
+namespace Michaeljennings\Snapshot\Store;
 
 use Michaeljennings\Snapshot\Contracts\Store;
 
-abstract class AbstractStore implements Store {
-
+abstract class AbstractStore implements Store
+{
     /**
      * The package config.
      *
@@ -27,7 +29,7 @@ abstract class AbstractStore implements Store {
     /**
      * Create a new snapshot item.
      *
-     * @param $snapshotId
+     * @param       $snapshotId
      * @param array $input
      * @return Item
      */
@@ -57,5 +59,4 @@ abstract class AbstractStore implements Store {
 
         return $this->find($snapshot->getId());
     }
-
 }

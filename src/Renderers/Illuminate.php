@@ -1,9 +1,11 @@
-<?php namespace Michaeljennings\Snapshot\Renderers; 
+<?php
+
+namespace Michaeljennings\Snapshot\Renderers;
 
 use Michaeljennings\Snapshot\Contracts\Renderer;
 
-class Illuminate implements Renderer {
-
+class Illuminate implements Renderer
+{
     /**
      * An instance of the illuminate view class
      *
@@ -19,7 +21,7 @@ class Illuminate implements Renderer {
     /**
      * Return the required view.
      *
-     * @param $view
+     * @param       $view
      * @param array $data
      * @return string
      */
@@ -27,5 +29,4 @@ class Illuminate implements Renderer {
     {
         return $this->view->make($view, $data)->render();
     }
-
 }

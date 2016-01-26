@@ -1,8 +1,11 @@
-<?php namespace Michaeljennings\Snapshot\Contracts;
+<?php
+
+namespace Michaeljennings\Snapshot\Contracts;
 
 use Exception;
 
-interface Snapshot {
+interface Snapshot
+{
 
     /**
      * Capture the current state of the application.
@@ -35,5 +38,4 @@ interface Snapshot {
      * @return string
      */
     public function render($id);
-
 }

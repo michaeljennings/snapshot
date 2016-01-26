@@ -1,9 +1,11 @@
-<?php namespace Michaeljennings\Snapshot\Store\Eloquent;
+<?php
+
+namespace Michaeljennings\Snapshot\Store\Eloquent;
 
 use Michaeljennings\Snapshot\Store\AbstractStore;
 
-class Store extends AbstractStore {
-
+class Store extends AbstractStore
+{
     /**
      * Create a new snapshot.
      *
@@ -21,7 +23,7 @@ class Store extends AbstractStore {
     /**
      * Create a new snapshot item.
      *
-     * @param $snapshotId
+     * @param       $snapshotId
      * @param array $input
      * @return Item
      */
@@ -48,5 +50,4 @@ class Store extends AbstractStore {
 
         return $model->where('id', $id)->with('items')->first();
     }
-
 }
