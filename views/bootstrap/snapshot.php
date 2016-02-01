@@ -1,4 +1,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<style>
+    li.list-group-item p {
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+
+    h4.list-group-item-heading {
+        word-wrap: break-word;
+        word-break: break-word;
+    }
+</style>
 <div class="col-sm-4">
     <ul class="list-group">
         <?php foreach ($snapshot->getItems() as $item): ?>
