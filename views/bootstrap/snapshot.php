@@ -4,7 +4,9 @@
         word-wrap: break-word;
         word-break: break-word;
     }
-
+    .list-group {
+        word-wrap:break-word;
+    }
     h4.list-group-item-heading {
         word-wrap: break-word;
         word-break: break-word;
@@ -23,6 +25,19 @@
     </ul>
 </div>
 <div class="col-sm-8">
+    <?php $additionalData = $snapshot->getAdditionalData(); ?>
+    <?php if(!empty($additionalData)): ?>
+        <h3>Additional Data</h3>
+        <table class="table">
+            <?php foreach($additionalData as $variable => $value): ?>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+
     <h3>Server</h3>
     <table class="table">
         <?php foreach ($snapshot->getServer() as $variable => $value): ?>
