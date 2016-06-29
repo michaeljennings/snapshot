@@ -71,7 +71,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getServer()
     {
-        return $this->server ? json_decode($this->server) : [];
+        return $this->server ? json_decode($this->server, true) : [];
     }
 
     /**
