@@ -71,7 +71,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getServer()
     {
-        return $this->server ? json_decode($this->server) : [];
+        return $this->server ? json_decode($this->server, true) : [];
     }
 
     /**
@@ -81,7 +81,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getPost()
     {
-        return $this->post ? json_decode($this->post) : [];
+        return $this->post ? json_decode($this->post, true) : [];
     }
 
     /**
@@ -91,7 +91,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getGet()
     {
-        return $this->get ? json_decode($this->get) : [];
+        return $this->get ? json_decode($this->get, true) : [];
     }
 
     /**
@@ -101,7 +101,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getFiles()
     {
-        return $this->files ? json_decode($this->files) : [];
+        return $this->files ? json_decode($this->files, true) : [];
     }
 
     /**
@@ -111,7 +111,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getCookies()
     {
-        return $this->cookies ? json_decode($this->cookies) : [];
+        return $this->cookies ? json_decode($this->cookies, true) : [];
     }
 
     /**
@@ -121,7 +121,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getSession()
     {
-        return $this->session ? json_decode($this->session) : [];
+        return $this->session ? json_decode($this->session, true) : [];
     }
 
     /**
@@ -131,7 +131,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getEnvironment()
     {
-        return $this->environment ? json_decode($this->environment) : [];
+        return $this->environment ? json_decode($this->environment, true) : [];
     }
 
     /**
@@ -141,7 +141,7 @@ class Snapshot extends Model implements SnapshotGetters
      */
     public function getAdditionalData()
     {
-        return $this->additional_data ? json_decode($this->additional_data) : [];
+        return $this->additional_data ? json_decode($this->additional_data, true) : [];
     }
 
     /**
