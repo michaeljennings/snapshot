@@ -80,17 +80,10 @@
     <table class="table">
         <?php if ($snapshot->getFiles()): ?>
             <?php foreach ($snapshot->getFiles() as $variable => $value): ?>
-                <tbody>
-                    <tr>
-                        <td><?= $variable ?></td>
-                        <td>
-                            <?php foreach ($value as $key => $data): ?>
-                                <strong><?= $key ?>: </strong>
-                                <?= $data ?> <br/>
-                            <?php endforeach; ?>
-                        </td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td><?= $variable ?></td>
+                    <td><?= $value ?></td>
+                </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <em>Empty</em>
