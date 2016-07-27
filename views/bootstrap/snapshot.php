@@ -32,7 +32,7 @@
             <?php foreach($additionalData as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
-                    <td><?= $value ?></td>
+                    <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
@@ -43,7 +43,7 @@
         <?php foreach ($snapshot->getServer() as $variable => $value): ?>
             <tr>
                 <td><?= $variable ?></td>
-                <td><?= $value ?></td>
+                <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
@@ -54,7 +54,7 @@
             <?php foreach ($snapshot->getPost() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
-                    <td><?= $value ?></td>
+                    <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -68,7 +68,7 @@
             <?php foreach ($snapshot->getGet() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
-                    <td><?= $value ?></td>
+                    <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -103,7 +103,7 @@
             <?php foreach ($snapshot->getCookies() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
-                    <td><?= $value ?></td>
+                    <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -117,7 +117,7 @@
             <?php foreach ($snapshot->getSession() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
-                    <td><?= $value ?></td>
+                    <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
@@ -131,7 +131,7 @@
             <?php foreach ($snapshot->getEnvironment() as $variable => $value): ?>
                 <tr>
                     <td><?= $variable ?></td>
-                    <td><?= $value ?></td>
+                    <td><?= is_array($value) ? json_encode($value) : $value; ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
