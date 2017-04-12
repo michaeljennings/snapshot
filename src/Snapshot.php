@@ -72,11 +72,7 @@ class Snapshot implements SnapshotContract
         $snapshot = $this->getServerInfo();
         list($stackTrace, $additionalData) = $this->formatArguments(func_get_args());
 
-        $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
-
-        $this->dispatcher->emit(new SnapshotCaptured($snapshot));
-
-        return $snapshot->getId();
+        return $this->captureSnapshot($snapshot, $stackTrace, $additionalData);
     }
 
     /**
@@ -96,6 +92,20 @@ class Snapshot implements SnapshotContract
         $snapshot['message'] = $message ? $message : $e->getMessage();
         $snapshot['code'] = $code ? $code : $e->getCode();
 
+        return $this->captureSnapshot($snapshot, $stackTrace, $additionalData);
+    }
+
+    /**
+     * Store the snapshot and then fire the snapshot captured event.
+     * Return's the id of the last snapshot captured.
+     *
+     * @param array      $snapshot
+     * @param array      $stackTrace
+     * @param array|null $additionalData
+     * @return mixed
+     */
+    protected function captureSnapshot(array $snapshot, array $stackTrace, $additionalData = null)
+    {
         $snapshot = $this->storeSnapshot($snapshot, $stackTrace, $additionalData);
 
         $this->dispatcher->emit(new SnapshotCaptured($snapshot));
