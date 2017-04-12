@@ -21,7 +21,10 @@
   "autoload": {
     "psr-4": {
       "Michaeljennings\\Snapshot\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "minimum-stability": "stable"
 }
