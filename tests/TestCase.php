@@ -19,11 +19,9 @@ class TestCase extends \Orchestra\Testbench\TestCase
                 'class' => 'Michaeljennings\Snapshot\Store\Eloquent\Store'
             ],
             'listeners' => [
-
                 'Michaeljennings\Snapshot\Events\SnapshotCaptured' => [
                     'Michaeljennings\Snapshot\Listeners\SendToSlack'
                 ]
-
             ]
         ]);
 
