@@ -26,5 +26,20 @@
       "src/helpers.php"
     ]
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "require-dev": {
+    "orchestra/testbench": "^3.5"
+  },
+  "autoload-dev": {
+      "psr-4": {
+          "Michael\\Snapshot\\Tests\\": "tests/"
+      }
+  },
+  "extra": {
+      "laravel": {
+          "providers": [
+              "Michaeljennings\\\Snapshot\\SnapshotServiceProvider"
+          ]
+      }
+  }
 }
