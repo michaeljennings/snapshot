@@ -15,7 +15,6 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "maknz/slack": "1.7.*",
     "league/event": "~2.0"
   },
   "autoload": {
@@ -26,5 +25,8 @@
       "src/helpers.php"
     ]
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "stable",
+  "suggest": {
+    "maknz/slack": "Used to send captured snapshots to slack."
+  }
 }
